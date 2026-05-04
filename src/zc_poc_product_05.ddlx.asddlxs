@@ -1,0 +1,149 @@
+@Metadata.layer: #CORE
+@UI.headerInfo:{
+    typeName: 'Distribution Chain',
+    typeNamePlural: 'Distribution Chains',
+    //title:  { label:'Sales Organization', value: 'ProductSalesOrgForEdit_Text' }, Added from local annotations
+    description: {label:'Sales Organization ',value:'ProductSalesOrgForEdit'},
+    imageUrl: '_Product.ProductImageURL'
+}
+annotate view ZC_POC_PRODUCT_05 with
+{
+  @UI.hidden: true
+  Product;
+  @UI.hidden: true
+  ProductSalesOrg;
+  @UI.hidden: true
+  ProductDistributionChnl;
+  @UI.hidden: true
+  ProductForEdit;
+  @UI: {
+     lineItem : [{ position:10, importance: #HIGH}],
+     fieldGroup:[{qualifier: 'SalesGeneralData',position: 10, groupLabel: 'General Sales'}]
+  }
+  ProductSalesOrgForEdit;
+  @UI.lineItem:[{position:20, importance: #HIGH}]
+  @UI.fieldGroup:[{qualifier: 'SalesGeneralData', position: 20}]
+  ProductDistributionChnlForEdit;
+  @UI.lineItem:[{position:70, label:'Marked for Deletion', importance:#LOW}]
+  @UI.fieldGroup: [{qualifier: 'SalesGeneralData',position: 130, label:'Marked for Deletion'}]
+  IsMarkedForDeletion;
+  @UI.fieldGroup: [{qualifier: 'QuantityStipulation1',label: 'Minimum Order Quantity',position: 40}]
+  @EndUserText.label: 'Minimum Order Quantity'
+  MinimumOrderQuantity;
+  @UI.fieldGroup: [{qualifier: 'SalesGeneralData',position: 50,label: 'Delivery Plant'}]
+  @UI.lineItem: [{position:40, label: 'Delivery Plant'}]
+  SupplyingPlant;
+  @UI.fieldGroup: [{qualifier: 'GroupingTerms',position: 20,label: 'Product Pricing Group'}]
+  PriceSpecificationProductGroup;
+  @UI.fieldGroup: [{qualifier: 'GroupingTerms',position: 70,label: 'Account Assignment Group'}]
+  AccountDetnProductGroup;
+  @UI.fieldGroup: [{qualifier: 'QuantityStipulation1',position: 10,groupLabel:'Quantity Stipulation',label: 'Minimum Delivery Quantity'}]
+  DeliveryNoteProcMinDelivQty;
+  @UI.fieldGroup: [{qualifier: 'GroupingTerms',position: 60,label: 'Item Category Group'}]
+  ItemCategoryGroup;
+  @UI.fieldGroup: [{qualifier: 'QuantityStipulation1',label: 'Delivery Unit',position: 50}]
+  @UI.lineItem: [{position: 50, label: 'Delivery Unit'}]
+  DeliveryQuantity;
+  @UI.fieldGroup: [{qualifier: 'SalesGeneralData', position: 70,label: 'Distribution-Chain-Status'}]
+  @EndUserText.label: 'DChain-Specific Product Status'
+  ProductSalesStatus;
+  @UI.fieldGroup: [{qualifier: 'SalesGeneralData', position: 80,label: 'Valid-From Date for Product Status'}]
+  ProductSalesStatusValidityDate;
+  @UI.lineItem:[{position: 30, label: 'Sales Unit'}]
+  @UI.fieldGroup:[{qualifier: 'SalesGeneralData', position: 30, label: 'Sales Unit'}]
+  SalesMeasureUnit;
+  @UI.fieldGroup: [{qualifier: 'SalesGeneralData', position: 90}]
+  ProductHierarchy;
+  // Product Groups need not be exposed
+  // Customer Incident 574983 2017
+  // Product Groups Update : 06 Feb, 2019 START
+  // Decided to expose for Cloud- SSCUI made available. Target 1905CE.
+
+  @UI.fieldGroup: [{qualifier: 'ProductGroups', position: 10, groupLabel: 'Product Groups'}]
+  FirstSalesSpecProductGroup;
+
+  @UI.fieldGroup: [{qualifier: 'ProductGroups', position: 20}]
+  SecondSalesSpecProductGroup;
+
+  @UI.fieldGroup: [{qualifier: 'ProductGroups', position: 30}]
+  ThirdSalesSpecProductGroup;
+
+  @UI.fieldGroup: [{qualifier: 'ProductGroups', position: 40}]
+  FourthSalesSpecProductGroup;
+
+  @UI.fieldGroup: [{qualifier: 'ProductGroups', position: 50}]
+  FifthSalesSpecProductGroup;
+  // Product Groups Update : 06 Feb, 2019 END
+  @UI.fieldGroup:[{qualifier: 'QuantityStipulation1',position:30,label: 'Minimum Make-to-Order Quantity'}]
+  @EndUserText.label: 'Minimum Make-to-Order Quantity'
+  MinimumMakeToOrderOrderQty;
+  @UI.fieldGroup: [{qualifier: 'GroupingTerms',groupLabel: 'Groupings - Sales 1',position: 10,label: 'Material Statistics Group'}]
+  @EndUserText.label: 'Material Statistics Group'
+  LogisticsStatisticsGroup;
+  @UI.fieldGroup: [{qualifier: 'GroupingTerms',position: 30}]
+  VolumeRebateGroup;
+  @UI.fieldGroup: [{qualifier: 'GroupingTerms',position: 80, label: 'Volume Commission Group'}]
+  ProductCommissionGroup;
+  @UI.fieldGroup:[{qualifier: 'SalesGeneralData',position: 120}]
+  CashDiscountIsDeductible;
+  @UI.fieldGroup: [{qualifier: 'GroupingTerms',position: 40,label: 'Pricing Reference Product'}]
+  @EndUserText:    { label: 'Pricing Reference Product', quickInfo: 'Pricing reference product'}
+  PricingReferenceProduct;
+  @UI.fieldGroup:[{qualifier: 'AssortmentControl',position: 10,label: 'Assortment Grade', groupLabel: 'Assortment Control'}]
+  AssortmentGrade;
+  @UI.fieldGroup:[{qualifier: 'AssortmentControl',position: 20, label:'External Assortment Priority'}]
+  @EndUserText.label: 'External Assortment Priority'
+  ProdExtAssortmentPriority;
+  @UI.fieldGroup:[{qualifier: 'PurchasingStore',position: 10,label: 'Listing Procedure', groupLabel:'Purchasing Stores'}]
+  @EndUserText.label: 'Listing Procedure for Store'
+  StoreListingProcedure;
+  @UI.fieldGroup:[{qualifier: 'PurchasingDc',groupLabel: 'Purchasing Distribution Centers',position: 10,label: 'Listing Procedure'}]
+  @EndUserText.label: 'Listing Procedure for DC'
+  DistrCntrListingProcedure;
+  @UI.fieldGroup:[{qualifier: 'PurchasingStore',position: 20,label: 'Listing Period Start Date'}]
+  @EndUserText.label: 'Store Listing Period Start Date'
+  StoreListingStartDate;
+  @UI.fieldGroup:[{qualifier: 'PurchasingStore',position: 30,label: 'Listing Period End Date'}]
+  @EndUserText.label: 'Store Listing Period End Date'
+  StoreListingEndDate;
+  @UI.fieldGroup:[{qualifier: 'PurchasingDc',position: 20,label: 'Listing Period Start Date'}]
+  @EndUserText.label: 'DC Listing Period Start Date'
+  DistrCntrListingStartDate;
+  @UI.fieldGroup:[{qualifier: 'PurchasingDc',position: 30,label: 'Listing Period End Date'}]
+  @EndUserText.label: 'DC Listing Period End Date'
+  DistrCntrListingEndDate;
+  @UI.fieldGroup:[{qualifier: 'SalesStores',position: 10,label: 'Sales Period Start Date', groupLabel:'Sales Stores'}]
+  @EndUserText.label: 'Store Sales Period Start Date'
+  StoreSaleStartDate;
+  @UI.fieldGroup:[{qualifier: 'SalesStores',position: 20,label: 'Sales Period End Date'}]
+  @EndUserText.label: 'Store Sales Period End Date'
+  StoreSaleEndDate;
+  @UI.fieldGroup:[{qualifier: 'SalesDc',position: 10,label: 'Sales Period Start Date', groupLabel:'Sales Distribution Centers'}]
+  @EndUserText.label: 'DC Sales Period Start Date'
+  DistrCntrSaleStartDate;
+  @UI.fieldGroup:[{qualifier: 'SalesDc',position: 20,label: 'Sales Period End Date'}]
+  @EndUserText.label: 'DC Sales Period End Date'
+  DistrCntrSaleEndDate;
+  @UI.fieldGroup: [{qualifier: 'SalesGeneralData',position: 60}]
+  RoundingProfile;
+  @UI.fieldGroup: [{qualifier: 'GroupingTerms',position: 50,label: 'Unit of Measure Group'}]
+  @EndUserText.label: 'Unit of Measure Group'
+  ProductUnitGroup;
+  @UI.fieldGroup: [{qualifier: 'QuantityStipulation1',position: 20,label: 'Maximum Delivery Quantity'}]
+  @EndUserText.label: 'Maximum Delivery Quantity'
+  MaxDeliveryQtyStoreOrder;
+  @UI.fieldGroup:[{qualifier: 'SalesGeneralData',position: 100,label: 'Price Fixing'}]
+  @EndUserText.label: 'Price Fixing'
+  PriceFixingCategory;
+  @UI.fieldGroup: [{qualifier: 'SalesGeneralData',position: 40, label: 'Variable Sales Unit Not Allowed'}]
+  @UI.lineItem: [{position: 40, label: 'Variable Sales Unit Not Allowed', importance: #LOW}]
+  @EndUserText.label: ''
+  VariableSalesUnitIsNotAllowed;
+  @UI.fieldGroup:[{qualifier: 'SalesGeneralData',position: 110,label: 'Competition Characterisation of Product'}]
+  @EndUserText.label: 'Competition Characterisation of Product'
+  CompetitionPressureCategory;
+  @UI.hidden : true
+  HasActiveHierarchy;
+//  @UI.fieldGroup: [{qualifier: 'SalesGeneralData',position: 100, label:'Relevant for Entitlement Generation'}]
+//  prodisentlmntrlvt;
+}

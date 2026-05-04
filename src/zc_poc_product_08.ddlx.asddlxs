@@ -1,0 +1,56 @@
+@Metadata.layer: #CORE
+annotate view ZC_POC_PRODUCT_08 with
+{
+  @UI.hidden: true
+  Product;
+  @UI.fieldGroup: [{qualifier: 'Storage',position:20, groupLabel: 'Storage', label: 'Storage Conditions'}]
+  @EndUserText.label: 'Storage Conditions'
+  StorageConditions;
+  @UI.fieldGroup: [{qualifier: 'Storage',position:30, label: 'Temperature Conditions Indicator'}]
+  @EndUserText.label: 'Temp. Conditions'
+  TemperatureConditionInd;
+  @UI.fieldGroup: [{qualifier: 'Storage',position:50, label: 'Hazardous Material Number'}]
+  @EndUserText.label: 'Hazardous Material Number'
+  HazardousMaterialNumber;
+  @UI.fieldGroup: [{qualifier: 'Storage',position:80, label: 'Number of Goods Receipt / Issue Slips'}]
+  @EndUserText.label: 'GR Slips Quantity'
+  NmbrOfGrOrgIsLipsToPrintQty;
+  @UI.fieldGroup: [{qualifier: 'Storage',position:60, label: 'Label Type'}]
+  @EndUserText.label: 'Label Type'
+  LabelType;
+  @UI.fieldGroup: [{qualifier: 'Storage',position:70, label: 'Label Form'}]
+  @EndUserText.label: 'Label Form'
+  LabelForm;
+  @UI.fieldGroup: [{qualifier: 'Storage',position:40, label: 'Container Requirements'}]
+//  @Consumption: {
+//     valueHelpDefinition: [{
+//       entity: { name: 'I_CtnRqmtsForProduct', element: 'StorageBinInstruction'}
+//     }]
+//  }
+  @EndUserText.label: 'Container Requirements'
+  StorageBinInstruction;
+  @UI.fieldGroup: [{qualifier: 'Storage',position:90, label: 'Storage Percentage'}]
+  @EndUserText.label: 'Storage Percentage'
+  TotalShelfLifeStoragePercent;
+  @UI.fieldGroup:[{qualifier: 'Storage',position: 10, label: 'Period Indicator for Shelf Life'}]
+  @UI.textArrangement: #TEXT_ONLY
+  @EndUserText.label: 'Period Indicator for Shelf Life'
+  ShelfLifeExpirationDatePeriod;
+  @UI.fieldGroup: [{qualifier: 'Storage',position:100, label: 'Rounding Rule for Calculation'}]
+  @EndUserText.label: 'Rounding Rule SLED'
+  ShelfLifeExprtnDateRndingRule;
+  @UI.hidden: true
+  AuthorizationGroup;
+  @Consumption.filter.hidden: true
+  ShelfLifeDurationUnit;
+  @UI.fieldGroup: [{qualifier: 'ShelfLife', label: 'Minimum Remaining Shelf Life', position: 20}]
+  @EndUserText.label: 'Minimum Remaining Shelf Life'
+  MinRemainingShelfLife;
+  @UI.fieldGroup: [{qualifier: 'ShelfLife', position: 30}]
+  ExpirationDate;
+  @Consumption.filter.hidden: true
+  BaseUnit;
+  @UI.fieldGroup: [{qualifier: 'Storage',position:110}]
+  TotalShelfLife;
+
+}

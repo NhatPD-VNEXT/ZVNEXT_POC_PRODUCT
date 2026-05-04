@@ -1,0 +1,659 @@
+@Metadata.layer: #CORE
+
+@UI.headerInfo: { typeName: 'Product',
+                  typeNamePlural: 'Products',
+                  imageUrl: 'ProductImageUrl',
+                  title.value: 'ProductDescription',
+                  description.value: 'ProductForEdit' }
+
+annotate view ZC_POC_PRODUCT with
+
+{
+  @UI.facet: [
+
+    // ================= HEADER =================
+    { purpose: #HEADER, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Head_BasicData1', position: 10 },
+    { purpose: #HEADER, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Head_BasicData2', position: 20 },
+    { purpose: #HEADER, type: #FIELDGROUP_REFERENCE, targetQualifier: 'Head_BasicData3', position: 30 },
+
+    // ================= GENERAL INFO =================
+    { id: 'GeneralInfo', type: #COLLECTION, label: '{@i18n>GeneralInformation}', position: 10 },
+
+      { id: 'BasicData', parentId: 'GeneralInfo', type: #COLLECTION, label: '{@i18n>BasicData}', position: 10 },
+
+        { id: 'BasicData_C1', parentId: 'BasicData', type: #FIELDGROUP_REFERENCE, targetQualifier: 'BasicDataCol1', position: 10 },
+        { id: 'BasicData_C2', parentId: 'BasicData', type: #FIELDGROUP_REFERENCE, targetQualifier: 'BasicDataCol2', position: 20 },
+        { id: 'BasicData_C3', parentId: 'BasicData', type: #FIELDGROUP_REFERENCE, targetQualifier: 'BasicDataCol3', position: 30 },
+        { id: 'BasicData_C4', parentId: 'BasicData', type: #FIELDGROUP_REFERENCE, targetQualifier: 'BasicDataCol4', position: 40 },
+        { id: 'BasicData_C5', parentId: 'BasicData', type: #FIELDGROUP_REFERENCE, targetQualifier: 'BasicDataCol5', position: 50 },
+
+        { id: 'BasicData_More', parentId: 'BasicData',
+          type: #FIELDGROUP_REFERENCE,
+          targetQualifier: 'BasicDataExtended',
+          position: 60,
+          isPartOfPreview: false },
+
+      { id: 'Descriptions', parentId: 'GeneralInfo',
+        type: #LINEITEM_REFERENCE,
+        label: '{@i18n>Descriptions}',
+        targetElement: '_ProductDescription',
+        position: 20 },
+
+      { id: 'BaseUoM', parentId: 'GeneralInfo',
+        type: #FIELDGROUP_REFERENCE,
+        label: '{@i18n>BaseUnitOfMeasure}',
+        targetQualifier: 'Art_UOM4',
+        position: 30 },
+
+      { id: 'UnitofMeasure', parentId: 'GeneralInfo',
+        type: #LINEITEM_REFERENCE,
+        label: '{@i18n>UnitsOfMeasure}',
+        targetElement: '_ProductUnitOfMeasure',
+        position: 40 },
+
+    // ================= PRODUCT COMPLIANCE =================
+    { id: 'ProductCompliance', type: #COLLECTION, label: '{@i18n>ProductCompliance}', position: 50 },
+    { id: 'ProductCompliance_Ref', parentId: 'ProductCompliance',
+      type: #FIELDGROUP_REFERENCE,
+      targetQualifier: 'ProductCompliance',
+      position: 10 },
+
+    // ================= VARIANT CONFIG =================
+    { id: 'Variant_Configuration', type: #COLLECTION, label: '{@i18n>VariantConfiguration}', position: 60 },
+    { id: 'VariantConfiguration_Ref', parentId: 'Variant_Configuration',
+      type: #FIELDGROUP_REFERENCE,
+      targetQualifier: 'VariantConfiguration',
+      position: 10 },
+
+    // ================= SALES =================
+    { id: 'GeneralSales', type: #COLLECTION, label: '{@i18n>Sales}', position: 70 },
+
+      { id: 'GeneralSales_1', parentId: 'GeneralSales',
+        type: #FIELDGROUP_REFERENCE,
+        targetElement: '_ProductSales',
+        targetQualifier: 'ProductSales1',
+        position: 10 },
+
+      { id: 'GeneralSales_2', parentId: 'GeneralSales',
+        type: #FIELDGROUP_REFERENCE,
+        targetQualifier: 'ProductSales2',
+        position: 20 },
+
+    // ================= STORAGE =================
+    { id: 'GeneralStorage', type: #COLLECTION, label: '{@i18n>Storage}', position: 80 },
+
+      { id: 'GeneralStorage_Storage', parentId: 'GeneralStorage',
+        type: #FIELDGROUP_REFERENCE,
+        targetElement: '_ProductStorage',
+        targetQualifier: 'Storage',
+        position: 10 },
+
+      { id: 'SupplyChainManagement', parentId: 'GeneralStorage',
+        type: #COLLECTION,
+        label: '{@i18n>ShelfLifeAdvancedPlanning}',
+        position: 20 },
+
+        { id: 'SupplyChainManagement_ShelfLife',
+          parentId: 'SupplyChainManagement',
+          type: #FIELDGROUP_REFERENCE,
+          label: '{@i18n>ShelfLife}',
+          targetElement: '_ProductStorage',
+          targetQualifier: 'ShelfLife',
+          position: 10 },
+
+    // ================= EWM =================
+    { id: 'EWMMain', type: #COLLECTION, label: '{@i18n>WarehouseManagement}', position: 90 },
+
+      { id: 'EWMExecution', parentId: 'EWMMain',
+        type: #COLLECTION,
+        label: '{@i18n>Execution}',
+        position: 10 },
+
+        { id: 'EWMExecution_Data', parentId: 'EWMExecution',
+          type: #FIELDGROUP_REFERENCE,
+          label: '{@i18n>ExecutionData}',
+          targetQualifier: 'EWMExecution',
+          position: 10 },
+
+        { id: 'EWMExecution_QM', parentId: 'EWMExecution',
+          type: #FIELDGROUP_REFERENCE,
+          label: '{@i18n>QualityManagement}',
+          targetQualifier: 'EWMQltyMgmt',
+          position: 20 },
+
+      { id: 'EWMPackaging', parentId: 'EWMMain',
+        type: #COLLECTION,
+        label: '{@i18n>Packaging}',
+        position: 20 },
+
+        { id: 'EWMPackaging_General', parentId: 'EWMPackaging',
+          type: #FIELDGROUP_REFERENCE,
+          label: '{@i18n>GeneralPackaging}',
+          targetQualifier: 'EWMGeneralPack',
+          position: 10 },
+
+        { id: 'EWMPackaging_Max', parentId: 'EWMPackaging',
+          type: #FIELDGROUP_REFERENCE,
+          label: '{@i18n>MaximumPackaging}',
+          targetQualifier: 'EWMMaxPack',
+          position: 20 },
+
+      { id: 'Warehouse_Main', parentId: 'EWMMain',
+        type: #LINEITEM_REFERENCE,
+        label: '{@i18n>Warehouse}',
+        targetElement: '_ProductEWMWarehouse',
+        position: 30 },
+
+    // ================= DISTRIBUTION =================
+    { id: 'DistributionChains', type: #COLLECTION, label: '{@i18n>DistributionChains}', position: 100 },
+    { id: 'DistributionChains_Main', parentId: 'DistributionChains',
+      type: #LINEITEM_REFERENCE,
+      label: '{@i18n>Distribution}',
+      targetElement: '_ProductSalesDelivery',
+      position: 10 },
+
+    // ================= PLANTS =================
+    { id: 'Plants', type: #COLLECTION, label: '{@i18n>Plants}', position: 110 },
+    { id: 'Plants_Main', parentId: 'Plants',
+      type: #LINEITEM_REFERENCE,
+      label: '{@i18n>Plants}',
+      targetElement: '_ProductPlant',
+      position: 10 },
+
+    // ================= VALUATION =================
+    { id: 'ValuationAreas', type: #COLLECTION, label: '{@i18n>ValuationAreas}', position: 120 },
+    { id: 'ValuationAreas_Main', parentId: 'ValuationAreas',
+      type: #LINEITEM_REFERENCE,
+      label: '{@i18n>ValuationAreas}',
+      targetElement: '_ProductValuation',
+      position: 10 },
+
+    // ================= NOTES =================
+    { id: 'Notes', type: #COLLECTION, label: '{@i18n>Notes}', position: 130 },
+
+      { id: 'BasicText', parentId: 'Notes',
+        type: #LINEITEM_REFERENCE,
+        label: '{@i18n>BasicText}',
+        targetElement: '_ProductBasicText',
+        position: 10 },
+
+      { id: 'InspectionText', parentId: 'Notes',
+        type: #LINEITEM_REFERENCE,
+        label: '{@i18n>InspectionText}',
+        targetElement: '_ProductInspectionText',
+        position: 20 },
+
+      { id: 'InternalComment', parentId: 'Notes',
+        type: #LINEITEM_REFERENCE,
+        label: '{@i18n>InternalComment}',
+        targetElement: '_ProductInternalComment',
+        position: 30 },
+
+      { id: 'PurchaseOrderText', parentId: 'Notes',
+        type: #LINEITEM_REFERENCE,
+        label: '{@i18n>PurchaseOrderText}',
+        targetElement: '_ProductPurchaseOrderText',
+        position: 40 }
+
+  ]
+  @UI.identification: [
+      {
+        position: 10,
+        type: #FOR_ACTION,
+        dataAction: 'ReSendRequest',
+        label: 'Re-send Request'
+      }
+    ]
+    //  @UI.hidden: true
+    //  Product;
+  @UI.lineItem: [
+      {
+        position: 10,
+        type: #FOR_ACTION,
+        dataAction: 'ReSendRequest',
+        label: 'Re-send Request'
+      }
+  ]
+  @UI.hidden: true
+  ProductExternalId;
+
+  @UI.lineItem: [ { position: 10, label: '{@i18n>DescriptionId}', importance: #HIGH },
+                  { qualifier: 'duplicateCheck', position: 10, label: '{@i18n>ProductNumber}' } ]
+  @UI.selectionField: [ { position: 10 } ]
+  //  ProductForEdit;
+  Product;
+
+  @UI.selectionField: [ { position: 20 } ]
+  ProductDescription;
+
+  @UI.fieldGroup: [ { qualifier: 'Head_BasicData1',
+                      position: 10,
+                      label: '{@i18n>ProductType}',
+                      groupLabel: '{@i18n>HeaderDetails1}' },
+                    { qualifier: 'ColumnProductTypeGroup', position: 20, groupLabel: '{@i18n>GroupType}' } ]
+  ProductTypeCode;
+
+  @EndUserText.label: '{@i18n>CrossPlantProductStatus}'
+  @UI.fieldGroup: [ { qualifier: 'Statuses',
+                      position: 10,
+                      label: '{@i18n>CrossPlantProductStatus}',
+                      groupLabel: '{@i18n>Statuses}' },
+                    { qualifier: 'StatusesSF',
+                      position: 10,
+                      label: '{@i18n>CrossPlantProductStatus}',
+                      groupLabel: '{@i18n>Statuses}' } ]
+  CrossPlantStatus;
+
+  @UI.fieldGroup: [ { qualifier: 'Statuses',   position: 20, label: '{@i18n>ValidFromDate}'             },
+                    { qualifier: 'StatusesSF', position: 20, label: '{@i18n>CrossPlantStatusValidFrom}' } ]
+  CrossPlantStatusValidityDate;
+
+  @UI.fieldGroup: [ { qualifier: 'Head_BasicData1', position: 30, groupLabel: '{@i18n>HeaderDetails1}' },
+                    { qualifier: 'ColumnProductTypeGroup', position: 10 } ]
+  @UI.lineItem: [ { qualifier: 'duplicateCheck', position: 30, label: '{@i18n>ProductGroup}', importance: #HIGH },
+                  { position: 20,
+                    label: '{@i18n>GroupType}',
+                    type: #AS_FIELDGROUP,
+                    valueQualifier: 'ColumnProductTypeGroup' } ]
+  @UI.selectionField: [ { position: 40 } ]
+  ProductGroup;
+
+  @UI.fieldGroup: [ { qualifier: 'Head_BasicData2',
+                      position: 10,
+                      groupLabel: '{@i18n>HeaderDetails2}',
+                      label: '{@i18n>BaseUnitOfMeasure}' } ]
+  @UI.lineItem: [ { qualifier: 'duplicateCheck', position: 40, label: '{@i18n>BaseUnitOfMeasure}', importance: #HIGH } ]
+  BaseUnit;
+
+  @UI.fieldGroup: [ { qualifier: 'Head_BasicData3',
+                      position: 10,
+                      label: '{@i18n>RevisionLevel}',
+                      groupLabel: '{@i18n>HeaderDetails3}' },
+                    { qualifier: 'Head_BasicData4',
+                      position: 10,
+                      groupLabel: '{@i18n>HeaderDetails3}',
+                      label: '{@i18n>RevisionLevel}' } ]
+  MaterialRevisionLevel;
+
+  @UI.fieldGroup: [ { qualifier: 'Head_BasicData4', position: 20, label: '{@i18n>ChangeNumber}' } ]
+  ChangeNumber;
+
+  @UI.fieldGroup: [ { qualifier: 'BasicDataCol1',
+                      position: 10,
+                      label: '{@i18n>Division}',
+                      groupLabel: '{@i18n>BasicData}' } ]
+  Division;
+
+  @EndUserText.label: '{@i18n>OldProductNumber}'
+  @UI.fieldGroup: [ { qualifier: 'BasicDataCol1',
+                      position: 20,
+                      label: '{@i18n>OldProductNumber}',
+                      groupLabel: '{@i18n>BasicData}' } ]
+  ProductOldId;
+
+  @EndUserText.label: '{@i18n>BasicProduct}'
+  @UI.fieldGroup: [ { qualifier: 'BasicDataCol2',
+                      position: 10,
+                      label: '{@i18n>BasicProduct}',
+                      groupLabel: '{@i18n>BasicData}' } ]
+  BasicMaterial;
+
+  @UI.fieldGroup: [ { qualifier: 'BasicDataCol2',
+                      position: 20,
+                      label: '{@i18n>BatchManagementRequired}',
+                      groupLabel: '{@i18n>BasicData}' } ]
+  IsBatchManagementRequired;
+
+  @EndUserText.label: '{@i18n>MarkedForDeletion}'
+  @UI.fieldGroup: [ { qualifier: 'BasicDataCol3',
+                      position: 10,
+                      label: '{@i18n>MarkedForDeletion}',
+                      groupLabel: '{@i18n>BasicData}' } ]
+  IsMarkedForDeletion;
+
+  @UI.fieldGroup: [ { qualifier: 'BasicDataCol3',
+                      position: 20,
+                      label: '{@i18n>ProductIsLocked}',
+                      groupLabel: '{@i18n>BasicData}' } ]
+  ProductIsLocked;
+
+  @UI.fieldGroup: [ { qualifier: 'BasicDataCol4',
+                      position: 10,
+                      label: '{@i18n>CreatedBy}',
+                      groupLabel: '{@i18n>BasicData}',
+                      type: #AS_CONTACT } ]
+  CreatedBy;
+
+  @UI.fieldGroup: [ { qualifier: 'BasicDataCol4',
+                      position: 20,
+                      label: '{@i18n>CreatedOn}',
+                      groupLabel: '{@i18n>BasicData}' } ]
+  CreatedAt;
+
+  @UI.fieldGroup: [ { qualifier: 'BasicDataCol5',
+                      position: 10,
+                      label: '{@i18n>LastChangedBy}',
+                      groupLabel: '{@i18n>BasicData}',
+                      type: #AS_CONTACT },
+                    { qualifier: 'LastChangedInLineItem', position: 20, type: #AS_CONTACT } ]
+  LastUpdatedBy;
+
+  @UI.fieldGroup: [ { qualifier: 'BasicDataCol5',
+                      position: 20,
+                      label: '{@i18n>LastChangedOn}',
+                      groupLabel: '{@i18n>BasicData}' },
+                    { qualifier: 'LastChangedInLineItem',
+                      position: 10,
+                      label: '{@i18n>LastChangedOn}',
+                      groupLabel: '{@i18n>LastChangedOn}' } ]
+  @UI.lineItem: [ { position: 50,
+                    type: #AS_FIELDGROUP,
+                    label: '{@i18n>LastChanged}',
+                    valueQualifier: 'LastChangedInLineItem' } ]
+  LastUpdatedAt;
+
+  @UI.fieldGroup: [ { qualifier: 'BasicDataExtended', position: 10 } ]
+  Brand;
+
+  @EndUserText.label: '{@i18n>WithEmptiesBOM}'
+  @UI.fieldGroup: [ { qualifier: 'BasicDataExtended', position: 20, label: '{@i18n>HasEmpties}' } ]
+  HasEmptiesBom;
+
+  @UI.fieldGroup: [ { qualifier: 'BasicDataExtended', position: 30 } ]
+  ValidityStartDate;
+
+  @UI.fieldGroup: [ { qualifier: 'BasicDataExtended', position: 40, label: '{@i18n>DeletionDate}' } ]
+  ProductValidEndDate;
+
+  @UI.fieldGroup: [ { qualifier: 'BasicDataExtended', position: 50, label: '{@i18n>Competitor}' } ]
+  CompetitorId;
+
+  @UI.fieldGroup: [ { qualifier: 'BasicDataExtended',
+                      position: 60,
+                      groupLabel: '{@i18n>FurtherBasicData}',
+                      label: '{@i18n>ReferenceProduct}' } ]
+  ReferenceProduct;
+
+  @UI.fieldGroup: [ { qualifier: 'Art_UOM2',
+                      position: 10,
+                      label: '{@i18n>GrossWeight}',
+                      groupLabel: '{@i18n>BaseUnitOfMeasureWeight}' } ]
+  GrossWeight;
+
+  @UI.fieldGroup: [ { qualifier: 'Art_UOM2', position: 20, label: '{@i18n>NetWeight}' } ]
+  NetWeight;
+
+  @UI.fieldGroup: [ { qualifier: 'Art_UOM3',
+                      position: 10,
+                      label: '{@i18n>Volume}',
+                      groupLabel: '{@i18n>BaseUnitOfMeasureVolume}' } ]
+  MaterialVolume;
+
+  @EndUserText.label: '{@i18n>GeneralItemCategoryGroup}'
+  @UI.fieldGroup: [ { qualifier: 'Groupings', position: 30 } ]
+  ItemCategoryGroup;
+
+  @Consumption.filter.hidden: true
+  @UI.fieldGroup: [ { qualifier: 'Groupings',
+                      groupLabel: '{@i18n>Groupings}',
+                      position: 10,
+                      label: '{@i18n>ProductHierarchy}' } ]
+  ProductHierarchy;
+
+  @UI.fieldGroup: [ { qualifier: 'Statuses',   position: 60 },
+                    { qualifier: 'StatusesSF', position: 60 } ]
+  AnpCode;
+
+  @UI.hidden: true
+  ProdNoInGenProdInPrepackProd;
+
+  @EndUserText.label: '{@i18n>SizeDimensions}'
+  @UI.fieldGroup: [ { qualifier: 'ContentDesign',
+                      position: 20,
+                      label: '{@i18n>SizeDimensions}',
+                      groupLabel: '{@i18n>GeneralData}' } ]
+  SizeOrDimensionText;
+
+  @EndUserText.label: '{@i18n>IndustryStandardDescription}'
+  @UI.fieldGroup: [ { qualifier: 'ContentDesign', position: 10, label: '{@i18n>IndustryStandardDescription}' } ]
+  IndustryStandardName;
+
+  @UI.fieldGroup: [ { qualifier: 'Art_UOM4',
+                      label: '{@i18n>GTIN}',
+                      groupLabel: '{@i18n>BaseUnitOfMeasureGTIN}',
+                      position: 10 },
+                    { qualifier: 'Head_BasicData2', position: 20, label: '{@i18n>GTIN}' } ]
+  @UI.lineItem: [ { position: 30, label: '{@i18n>GTIN}', importance: #MEDIUM } ]
+  @UI.selectionField: [ { position: 30 } ]
+  ProductStandardId;
+
+  @UI.fieldGroup: [ { qualifier: 'Art_UOM4',        label: '{@i18n>GTINCategory}', position: 20 },
+                    { qualifier: 'Head_BasicData2', position: 30, label: '{@i18n>GTINCategory}' } ]
+  InternationalArticleNumberCat;
+
+  @UI.fieldGroup: [ { qualifier: 'VariantConfiguration',
+                      label: '{@i18n>ProductIsConfigurable}',
+                      position: 10,
+                      groupLabel: '{@i18n>Configuration}' } ]
+  ProductIsConfigurable;
+
+  @EndUserText.label: '{@i18n>ExternalProductGroup}'
+  @UI.fieldGroup: [ { qualifier: 'Groupings', position: 20, label: '{@i18n>ExternalProductGroup}' } ]
+  ExternalProductGroup;
+
+  @Consumption.semanticObject: 'Material'
+  @EndUserText.label: '{@i18n>CrossPlantConfigurableProduct}'
+  @UI.fieldGroup: [ { qualifier: 'VariantConfiguration', position: 20, label: '{@i18n>CrossPlantConfigurableProduct}' } ]
+  CrossPlantConfigurableProduct;
+
+  @UI.fieldGroup: [ { qualifier: 'Statuses',   position: 30 },
+                    { qualifier: 'StatusesSF', position: 30 } ]
+  SerialNoExplicitnessLevel;
+
+  @EndUserText.label: '{@i18n>ManufacturerPartNumber}'
+  @UI.fieldGroup: [ { qualifier: 'GeneralPurchasing',
+                      position: 20,
+                      label: '{@i18n>ManufacturerPartNumber}',
+                      groupLabel: '{@i18n>Purchasing}' } ]
+  ProductManufacturerNumber;
+
+  @EndUserText.label: '{@i18n>ManufacturerNumber}'
+  @UI.fieldGroup: [ { qualifier: 'GeneralPurchasing', position: 10, label: '{@i18n>ManufacturerNumber}' } ]
+  ManufacturerNumber;
+
+  @EndUserText.label: '{@i18n>ManufacturerPartProfile}'
+  @UI.fieldGroup: [ { qualifier: 'GeneralPurchasing', position: 30, label: '{@i18n>ManufacturerPartProfile}' } ]
+  ManufacturerPartProfile;
+
+  @UI.fieldGroup: [ { qualifier: 'Art_UOM1', position: 10, groupLabel: '{@i18n>BaseUnitOfMeasureDimension}' } ]
+  BaseUnitSpecificProductLength;
+
+  @UI.fieldGroup: [ { qualifier: 'Art_UOM1', position: 20 } ]
+  BaseUnitSpecificProductWidth;
+
+  @UI.fieldGroup: [ { qualifier: 'Art_UOM1', position: 30 } ]
+  BaseUnitSpecificProductHeight;
+
+  @UI.fieldGroup: [ { qualifier: 'Head_BasicData1',
+                      groupLabel: '{@i18n>HeaderDetails1}',
+                      position: 20,
+                      label: '{@i18n>ProductCategory}' } ]
+  @UI.lineItem: [ { position: 40, importance: #HIGH } ]
+  @UI.selectionField: [ { position: 50 } ]
+  ArticleCategory;
+
+  @EndUserText.label: '{@i18n>NetContents}'
+  @UI.fieldGroup: [ { qualifier: 'ContentDesign', position: 30, label: '{@i18n>NetContents}' } ]
+  NetContent;
+
+  @EndUserText.label: '{@i18n>ComparisonPriceUnit}'
+  @UI.fieldGroup: [ { qualifier: 'ContentDesign', position: 50, label: '{@i18n>ComparisonPriceUnit}' } ]
+  ComparisonPriceQuantity;
+
+  @EndUserText.label: '{@i18n>GrossContents}'
+  @UI.fieldGroup: [ { qualifier: 'ContentDesign', position: 40, label: '{@i18n>GrossContents}' } ]
+  GrossContent;
+
+  @UI.fieldGroup: [ { qualifier: 'ProductSales2', position: 10, groupLabel: '{@i18n>ProductSales2}' } ]
+  AssortmentListType;
+
+  @UI.fieldGroup: [ { qualifier: 'Statuses',   position: 50 },
+                    { qualifier: 'StatusesSF', position: 50 } ]
+  HasTextilePartsWThanimalOrigin;
+
+  @UI.fieldGroup: [ { qualifier: 'ProductSales2', position: 20, label: '{@i18n>ServiceAgreement}' } ]
+  ServiceAgreement;
+
+  @UI.fieldGroup: [ { qualifier: 'ArticleReferenceValues', position: 110, label: '{@i18n>RegionOfOrigin}' } ]
+  RegionOfOrigin;
+
+  @UI.fieldGroup: [ { qualifier: 'ArticleReferenceValues', position: 100 } ]
+  CountryOfOrigin;
+
+  @EndUserText.label: '{@i18n>DeliveryUnitOfMeasure}'
+  @UI.fieldGroup: [ { qualifier: 'ArticleReferenceValues',
+                      groupLabel: '{@i18n>ReferenceValues}',
+                      position: 10,
+                      label: '{@i18n>DeliveryUnitOfMeasure}' } ]
+  GoodsIssueUnit;
+
+  @UI.fieldGroup: [ { qualifier: 'ArticleReferenceValues', position: 60 } ]
+  ConsumptionValueCategory;
+
+  @UI.fieldGroup: [ { qualifier: 'ArticleReferenceValues', position: 70 } ]
+  ValuationClass;
+
+  @UI.fieldGroup: [ { qualifier: 'ArticleReferenceValues', position: 30, label: '{@i18n>ValuationMargin}' } ]
+  ValuationMargin;
+
+  @UI.fieldGroup: [ { qualifier: 'EWMExecution',
+                      position: 10,
+                      label: '{@i18n>HandlingIndicator}',
+                      groupLabel: '{@i18n>ExtendedWarehouseExecutionData}' } ]
+  HandlingIndicator;
+
+  @UI.fieldGroup: [ { qualifier: 'EWMExecution', position: 20, label: '{@i18n>WarehouseProductGroup}' } ]
+  WarehouseProductGroup;
+
+  @EndUserText.label: '{@i18n>WarehouseStorageCondition}'
+  @UI.fieldGroup: [ { qualifier: 'EWMExecution', position: 30, label: '{@i18n>WarehouseStorageCondition}' } ]
+  WarehouseStorageCondition;
+
+  @UI.fieldGroup: [ { qualifier: 'EWMExecution', position: 40, label: '{@i18n>StandardHandlingUnitType}' } ]
+  StandardHandlingUnitType;
+
+  @EndUserText.label: '{@i18n>SerialNumberProfile}'
+  @UI.fieldGroup: [ { qualifier: 'EWMExecution', position: 50, label: '{@i18n>SerialNumberProfile}' } ]
+  SerialNumberProfile;
+
+  @EndUserText.label: '{@i18n>AdjustmentProfile}'
+  @UI.fieldGroup: [ { qualifier: 'EWMExecution', position: 60, label: '{@i18n>AdjustmentProfile}' } ]
+  AdjustmentProfile;
+
+  @UI.fieldGroup: [ { qualifier: 'EWMExecution', position: 70 } ]
+  IsPilferable;
+
+  @EndUserText.label: '{@i18n>RelevantForHS}'
+  @UI.fieldGroup: [ { qualifier: 'EWMExecution', position: 80, label: '{@i18n>RelevantForHazardousSubstances}' } ]
+  IsRelevantForHzds;
+
+  @EndUserText.label: '{@i18n>QuarantinePeriod}'
+  @UI.fieldGroup: [ { qualifier: 'EWMQltyMgmt',
+                      position: 10,
+                      label: '{@i18n>QuarantinePeriod}',
+                      groupLabel: '{@i18n>QualityManagement}' } ]
+  QuarantinePeriod;
+
+  @EndUserText.label: '{@i18n>QualityInspectionGroup}'
+  @UI.fieldGroup: [ { qualifier: 'EWMQltyMgmt', position: 20, label: '{@i18n>QualityInspectionGroup}' } ]
+  QualityInspectionGroup;
+
+  @UI.fieldGroup: [ { qualifier: 'EWMGeneralPack', position: 10, groupLabel: '{@i18n>ExtendedWarehouseManagement}' } ]
+  HandlingUnitType;
+
+  @UI.fieldGroup: [ { qualifier: 'EWMGeneralPack', position: 20 } ]
+  MaximumCapacity;
+
+  @EndUserText.label: '{@i18n>OvercapacityTolerance}'
+  @UI.fieldGroup: [ { qualifier: 'EWMGeneralPack', position: 30, label: '{@i18n>OvercapacityTolerance}' } ]
+  OverCapacityTolerance;
+
+  @EndUserText.label: '{@i18n>VariableTareWeight}'
+  @UI.fieldGroup: [ { qualifier: 'EWMGeneralPack', position: 40, label: '{@i18n>VariableTareWeight}' } ]
+  HasVariableTareWeight;
+
+  @UI.fieldGroup: [ { qualifier: 'EWMMaxPack',
+                      position: 10,
+                      label: '{@i18n>Length}',
+                      groupLabel: '{@i18n>ExtendeMaximumPackaging}' } ]
+  MaximumPackagingLength;
+
+  @UI.fieldGroup: [ { qualifier: 'EWMMaxPack', position: 20, label: '{@i18n>Width}' } ]
+  MaximumPackagingWidth;
+
+  @UI.fieldGroup: [ { qualifier: 'EWMMaxPack', position: 30, label: '{@i18n>Height}' } ]
+  MaximumPackagingHeight;
+
+  @UI.hidden: true
+  ClassificationSideEffect;
+
+  @UI.hidden: true
+  ConfigurationSideEffect;
+
+  @UI.fieldGroup: [ { qualifier: 'Groupings', position: 40 } ]
+  AuthorizationGroup;
+
+  @Consumption.filter.hidden: true
+  @UI.fieldGroup: [ { qualifier: 'ProductCompliance',
+                      groupLabel: '{@i18n>ProductCompliance}',
+                      label: '{@i18n>ComplianceRelevant}',
+                      position: 10 } ]
+  @UI.textArrangement: #TEXT_ONLY
+  IsChemicalComplianceRelevant;
+
+  @Consumption.filter.hidden: true
+  @UI.hidden: true
+  HasGlobalHierarchy;
+
+  @Consumption.filter.hidden: true
+  @UI.hidden: true
+  IsVariantConfigurationEnabled;
+
+  @UI.hidden: true
+  NumberOfProductVariants;
+
+  @UI.dataPoint: { title: '{@i18n>variantProgress}',
+                   description: ' ',
+                   targetValueElement: 'NumberOfProductVariants',
+                   valueFormat.numberOfFractionalDigits: 0,
+                   visualization: #PROGRESS }
+  @UI.hidden: true
+  NumberOfProcessedProdVariants;
+
+  @Consumption.filter.hidden: true
+  OverCapacityToleranceUnit;
+
+  @UI.fieldGroup: [ { qualifier: 'ArticleReferenceValues', position: 20, label: '{@i18n>SalesUnitOfMeasure}' } ]
+  SalesUnit;
+
+  @EndUserText.label: '{@i18n>LaboratoryDesignOffice}'
+  @UI.fieldGroup: [ { qualifier: 'ContentDesign', position: 25, label: '{@i18n>LaboratoryDesignOffice}' } ]
+  LaboratoryOrDesignOffice;
+
+  @UI.lineItem: [ { position: 5, importance: #HIGH } ]
+  ProductImageUrl;
+
+  @EndUserText.label: '{@i18n>MaterialGroupPackagingMaterials}'
+  PackagingMaterialGroup;
+
+  @Consumption.semanticObject: 'Material'
+  @EndUserText.label: '{@i18n>InternalProductNumber}'
+  @UI.fieldGroup: [ { qualifier: 'GeneralPurchasing', position: 40, label: '{@i18n>InternalProductNumber}' } ]
+  OwnInventoryManagedProduct;
+
+  @EndUserText.label: '{@i18n>ContentUnit}'
+  ContentUnit;
+
+  @EndUserText.label: '{@i18n>DocumentChangeNumber}'
+  ProductDocumentChangeNumber;
+}

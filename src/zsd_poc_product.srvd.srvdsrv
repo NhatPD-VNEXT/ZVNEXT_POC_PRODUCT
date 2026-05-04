@@ -1,0 +1,19 @@
+@EndUserText.label: 'Service Definition for ZC_POC_PRODUCT'
+define service ZSD_POC_PRODUCT {
+  expose ZC_POC_PRODUCT    as Product;
+  expose ZC_POC_PRODUCT_01 as ProductDescription;
+  expose ZC_POC_PRODUCT_02 as ProductSales;
+  expose ZC_POC_PRODUCT_03 as ProductProcurement;
+  expose ZC_POC_PRODUCT_04 as ProductPlant;
+  expose ZC_POC_PRODUCT_05 as ProductSalesDelivery;
+  expose ZC_POC_PRODUCT_06 as ProductUnit;
+  expose ZC_POC_PRODUCT_07 as ProductValuation;
+  expose ZC_POC_PRODUCT_08 as ProductStorage;
+  expose ZC_POC_PRODUCT_09 as ProductQualityManagement;
+  expose ZC_POC_PRODUCT_10 as ProductEWMWarehouse;
+  expose ZC_POC_PRODUCT_11 as ProductChangeMaster;
+  expose ZC_POC_PRODUCT_12 as ProductBasicText;
+  expose ZC_POC_PRODUCT_13 as ProductInspectionText;
+  expose ZC_POC_PRODUCT_14 as ProductPurchaseOrderText;
+  expose ZC_POC_PRODUCT_15 as ProductInternalComment;
+}

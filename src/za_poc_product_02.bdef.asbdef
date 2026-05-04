@@ -1,0 +1,7 @@
+abstract;
+
+define behavior for ZA_POC_PRODUCT_02 //alias <alias_name>
+{
+ field ( mandatory )
+ Product;
+}

@@ -1,0 +1,154 @@
+projection;
+strict ( 2 );
+use draft;
+
+define behavior for ZC_POC_PRODUCT alias Product
+{
+  use create;
+  use update;
+  use delete;
+
+  use action Edit;
+  use action Activate;
+  use action Discard;
+  use action Resume;
+  use action Prepare;
+  use action createProduct;
+  use action ReSendRequest;
+
+  use association _ProductDescription { create; with draft; }
+  use association _ProductSales { create; with draft; }
+  use association _ProductProcurement { create; with draft; }
+  use association _ProductPlant { create; with draft; }
+  use association _ProductSalesDelivery { create; with draft; }
+  use association _ProductUnitOfMeasure { create; with draft; }
+  use association _ProductValuation { create; with draft; }
+  use association _ProductStorage { create; with draft; }
+  use association _ProductQualityManagement { create; with draft; }
+  use association _ProductEWMWarehouse { create; with draft; }
+  use association _ProductChangeMaster { create; with draft; }
+  use association _ProductBasicText { create; with draft; }
+  use association _ProductInspectionText { create; with draft; }
+  use association _ProductPurchaseOrderText { create; with draft; }
+  use association _ProductInternalComment { create; with draft; }
+}
+
+define behavior for ZC_POC_PRODUCT_01 alias _ProductDescription
+{
+  use update;
+  use delete;
+
+  use association _Product { with draft; }
+}
+
+define behavior for ZC_POC_PRODUCT_02 alias _ProductSales
+{
+  use update;
+  use delete;
+
+  use association _Product { with draft; }
+}
+
+define behavior for ZC_POC_PRODUCT_03 alias _ProductProcurement
+{
+  use update;
+  use delete;
+
+  use association _Product { with draft; }
+}
+
+define behavior for ZC_POC_PRODUCT_04 alias _ProductPlant
+{
+  use update;
+  use delete;
+
+  use association _Product { with draft; }
+}
+
+define behavior for ZC_POC_PRODUCT_05 alias _ProductSalesDelivery
+{
+  use update;
+  use delete;
+
+  use association _Product { with draft; }
+}
+
+define behavior for ZC_POC_PRODUCT_06 alias _ProductUnitOfMeasure
+{
+  use update;
+  use delete;
+
+  use association _Product { with draft; }
+}
+
+define behavior for ZC_POC_PRODUCT_07 alias _ProductValuation
+{
+  use update;
+  use delete;
+
+  use association _Product { with draft; }
+}
+
+define behavior for ZC_POC_PRODUCT_08 alias _ProductStorage
+{
+  use update;
+  use delete;
+
+  use association _Product { with draft; }
+}
+
+define behavior for ZC_POC_PRODUCT_09 alias _ProductQualityManagement
+{
+  use update;
+  use delete;
+
+  use association _Product { with draft; }
+}
+
+define behavior for ZC_POC_PRODUCT_10 alias _ProductEWMWarehouse
+{
+  use update;
+  use delete;
+
+  use association _Product { with draft; }
+}
+
+define behavior for ZC_POC_PRODUCT_11 alias _ProductChangeMaster
+{
+  use update;
+  use delete;
+
+  use association _Product { with draft; }
+}
+
+define behavior for ZC_POC_PRODUCT_12 alias _ProductBasicText
+{
+  use update;
+  use delete;
+
+  use association _Product { with draft; }
+}
+
+define behavior for ZC_POC_PRODUCT_13 alias _ProductInspectionText
+{
+  use update;
+  use delete;
+
+  use association _Product { with draft; }
+}
+
+define behavior for ZC_POC_PRODUCT_14 alias _ProductPurchaseOrderText
+{
+  use update;
+  use delete;
+
+  use association _Product { with draft; }
+}
+
+define behavior for ZC_POC_PRODUCT_15 alias _ProductInternalComment
+{
+  use update;
+  use delete;
+
+  use association _Product { with draft; }
+}

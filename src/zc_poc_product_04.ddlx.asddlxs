@@ -1,0 +1,146 @@
+@Metadata.layer: #CORE
+
+@UI.headerInfo:{
+    typeName: 'Plant',
+    typeNamePlural: 'Plants',
+//    title:  { value: '_PlantCVH.PlantName' },
+    description: {value: 'Plant'},
+    imageUrl: '_Product.ProductImageURL'
+}
+
+annotate view ZC_POC_PRODUCT_04 with
+{
+  @UI.hidden: true
+  Product;
+
+  @UI.hidden: true
+  Plant;
+
+  @Search.defaultSearchElement: true
+  @Search.fuzzinessThreshold: 0.8
+  @Search.ranking: #HIGH
+
+  ProductForEdit;
+
+  @UI: {
+     fieldGroup: [{qualifier: 'PlantGeneralData', position: 10 }],
+     lineItem : [{ position:10}]
+  }
+  @Search.defaultSearchElement: true
+  PlantForEdit;
+
+  @Consumption.semanticObject: 'Material'
+  @EndUserText.label: 'Configurable Product'
+  ConfigurableProduct;
+
+  @UI: {
+     fieldGroup: [{qualifier: 'PlantGeneralData',position: 20,label:'Plant-Specific Product Status'}]
+  }
+  @UI.textArrangement: #TEXT_FIRST
+  @EndUserText.label: 'Plant-Specific Product Status'
+  ProfileCode;
+
+  @UI: {
+     fieldGroup: [{qualifier: 'PlantGeneralData',position: 30,label:'Valid From Date for Status'}]
+  }
+  ProfileValidityStartDate;
+
+  @UI.fieldGroup: [
+     {qualifier: 'Forecast', position: 20, label:'Period Type', groupLabel: 'Forecast General Data'}
+   ]
+  @EndUserText.label: 'Period Type'
+  PeriodType;
+
+  @UI.fieldGroup: [
+     {qualifier: 'Forecast', position: 30}
+   ]
+  FiscalYearVariant;
+
+  @UI: {
+     fieldGroup: [{qualifier: 'PlantGeneralData', label:'Marked for Deletion', position: 140}],
+     lineItem: [{position:70, label:'Marked for Deletion'}]
+   }
+  IsMarkedForDeletion;
+
+  @UI.fieldGroup: [{ qualifier: 'Head_BasicData3', position: 20, label: 'Current Period', importance:#MEDIUM}]
+  FiscalMonthCurrentPeriod;
+
+  @UI.fieldGroup: [{ qualifier: 'Head_BasicData3', position: 10, label: 'Fiscal Year of Current Period', importance:#MEDIUM}]
+  FiscalYearCurrentPeriod;
+
+  @UI: {
+      fieldGroup: [{qualifier: 'PlantGeneralData', position: 50, label: 'Unit of Issue'}]
+  }
+  GoodsIssueUnit;
+
+  @UI: {
+     fieldGroup: [{qualifier:'PlantGeneralData', label:'Product CFOP Category', position: 110}]
+  }
+  ProductCfopCategory;
+
+  @UI.hidden: true
+  ConfigurationSideEffect;
+
+  @UI: {
+     fieldGroup: [{qualifier: 'PlantGeneralData',position: 40}]
+  }
+  ProfitCenter;
+
+  @UI: {
+     fieldGroup: [{qualifier: 'PlantGeneralData', position: 60, label:'Batch Management Required'}]
+  }
+  IsBatchManagementRequired;
+
+  @UI: {
+     fieldGroup: [{qualifier: 'PlantGeneralData', position: 70, label:'Serial Number Profile'}]
+  }
+  SerialNumberProfile;
+
+  @UI: {
+     fieldGroup: [{qualifier: 'PlantGeneralData', position: 80, label:'Negative Stocks Allowed in Plant'}]
+  }
+  IsNegativeStockAllowed;
+
+  @UI: {
+     fieldGroup: [{qualifier: 'PlantGeneralData', position: 90, label:'Stock Determination Group'}]
+  }
+  StockDeterminationGroup;
+
+  @UI.hidden: true
+  ControllingArea;
+
+  @UI.hidden : true
+  IsVariantConfigurationEnabled;
+
+  @UI: {
+     fieldGroup: [{qualifier: 'PlantGeneralData', position: 130}]
+  }
+  ProductIsExciseTaxRelevant;
+
+  @UI: {
+     fieldGroup: [{qualifier: 'PlantGeneralData', position: 160}]
+  }
+  ProductMaxControlTemperature;
+  @UI: {
+     fieldGroup: [{qualifier: 'PlantGeneralData', position: 150}]
+  }
+  ProductMinControlTemperature;
+
+  @UI: {
+    fieldGroup: [{qualifier: 'PlantGeneralData', position: 170, label:'Product Freight Group'}]
+  }
+  @EndUserText.label: 'Product Freight Group'
+  ProductFreightGroup;
+
+
+//  @UI.lineItem:[
+//     {value:'_MaterialLotSizingProcedure.MRPResponsible', position:30, label:'MRP Controller', importance:#HIGH},
+//     {value:'_MaterialLotSizingProcedure.MRPType',position:20, label:'MRP Type', importance:#HIGH}
+//     ]
+//  _materiallotsizingprocedure;
+//
+//  @UI: {
+//     fieldGroup: [{qualifier: 'Forecast', position: 10, value: '_ProdPlntFcstParameters.ForecastModel', label:'Forecast Model'}]
+//   }
+//  _prodplntfcstparameters;
+}

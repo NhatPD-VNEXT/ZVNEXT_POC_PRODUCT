@@ -1,0 +1,25 @@
+@Metadata.layer: #CORE
+
+@UI.headerInfo:{
+  typeName: 'Description',
+  typeNamePlural: 'Descriptions',
+  title:  { value: 'LanguageISOCode' },
+  description : {value : 'ProductDescription'},
+  imageUrl: '_Product.ProductImageURL'
+}
+
+annotate view ZC_POC_PRODUCT_01 with
+{
+  @UI.hidden: true
+  Product;
+  @UI.lineItem : [{ position:20, importance:#HIGH}]
+  Language;
+  @UI.hidden: true
+  ProductForEdit;
+  @UI.hidden: true
+  LanguageForEdit;
+  @UI.hidden: true
+  LanguageIsoCode;
+  @UI.lineItem:[{position:30, label: 'Product',importance:#HIGH}]
+  ProductDescription;
+}

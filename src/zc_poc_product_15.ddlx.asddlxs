@@ -1,0 +1,16 @@
+@Metadata.layer: #CORE
+annotate entity ZC_POC_PRODUCT_15 with
+{
+  @UI.hidden: true
+  Product;
+  @UI.hidden: true
+  Textobjecttype;
+  @UI.lineItem: [{position: 10, importance: #HIGH, label: 'Language'}]
+  @UI.identification: [{position: 10, importance: #HIGH, label: 'Language'}]
+  Language;
+  @UI.lineItem: [{position: 20,importance: #HIGH,label: 'Text'}]
+  @UI.identification: [{position: 20,importance: #HIGH,label: 'Text'}]
+  @UI.multiLineText: true
+  Productlongtext;
+
+}

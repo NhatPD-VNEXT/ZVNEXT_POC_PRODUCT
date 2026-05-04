@@ -1,0 +1,127 @@
+@Metadata.layer: #CORE
+
+@UI.headerInfo: {
+    typeName: 'Warehouse',
+    typeNamePlural: 'Warehouses',
+//    title: { value: '_WarehouseText.WarehouseName' },
+    description: {value:'WarehouseForEdit'},
+    imageUrl: '_Product.ProductImageURL'
+}
+annotate view ZC_POC_PRODUCT_10 with
+{
+  @UI.hidden: true
+  Product;
+  @UI.hidden: true
+  Warehouse;
+  @UI.hidden: true
+  Businesspartner;
+  @UI: {
+      lineItem : [{ position:20, importance:#HIGH}],
+      fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 20}]
+    }
+  Businesspartnerforedit;
+  @UI.lineItem : [{ position:30, importance:#HIGH,label:'Plant' }]
+  Plant;
+  @UI: {
+      lineItem : [{ position:10, importance:#HIGH,label:'Warehouse Number' }],
+      fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 10}]
+  }
+  Warehouseforedit;
+  @UI.hidden: true
+  Productuuid;
+  @UI.hidden: true
+  Supplychainunituuid;
+  @UI.hidden: true
+  Businesspartneruuid;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 30, label:'Process Block Profile'}]
+  Ewmproductprocessblockprofile;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 40, label:'Process Type Determination Indicator'}]
+  @EndUserText.label: 'Process Type Determination Indicator'
+  Ewmwarehouseprocesstype;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 50, label:'Product Load Category'}]
+  @EndUserText.label: 'Product Load Category'
+  Ewmproductloadcategory;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 60, label:'Cycle Counting Indicator'}]
+  @EndUserText.label: 'Cycle Counting Indicator'
+  Ewmphysinventorycountingcycle;
+
+  //  @UI.fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 70, label:'Required Minimum Shelf Life'}]
+  @UI.hidden: true
+  @Consumption.filter.hidden: true
+  Requiredminshelflife;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 75, label:'Required Minimum Shelf Life'}]
+  @EndUserText.label: 'Required Minimum Shelf Life'
+  Requiredminshelflifecalc;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 80, label:'Backflush Withdrawal'}]
+  @EndUserText.label: 'Backflush Withdrawal'
+  Ewmprodbackflushwthdrwlmethod;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 90, label:'Correlation Fix'}]
+  Ewmkitquantitycorrelation;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 100, label:'Consumption Relevant for VAS'}]
+  @EndUserText.label: 'Consumption Relevant for VAS'
+  Ewmiscnsmpnrlvtforvaladdedsrvc;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 120, label:'Adjustment Profile'}]
+  Adjustmentprofile;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 130, label:'Quantity Classification'}]
+  Ewmmrchdsdistrqtyclassfctn;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 140, label:'Preferred Unit of Measure'}]
+  Preferredunitofmeasure;
+
+  @UI.fieldGroup: [{qualifier: 'EWMQualityInsp', position: 10, label:'Goods Receipt Block'}]
+  Ewmqltymgmtgdsrcptblkctrlkey;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 110, label:'Documentary Batch'}]
+  Isdocumentarybatch;
+
+  @UI.fieldGroup: [{qualifier: 'EWMQualityInsp', position: 20, label:'Quality Inspection Group'}]
+  @EndUserText.label: 'Quality Inspection Group'
+  Ewmqualityinspectiongroup;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehsePutaway', position: 10, label:'Putaway Control Indicator'}]
+  @EndUserText.label: 'Putaway Control Indicator'
+  Ewmptwycontrolstrategy;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehsePutaway', position: 20, label:'Storage Section Indicator'}]
+  @EndUserText.label: 'Storage Section Indicator'
+  Ewmstoragesectionmethod;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehsePutaway', position: 30}]
+  Storagebintype;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehsePutaway', position: 40, label:'Bulk Storage Indicator'}]
+  @EndUserText.label: 'Bulk Storage Indicator'
+  Productbulkstoragemethod;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehouseStock', position: 10, label:'Stock Removal Control Indicator'}]
+  @EndUserText.label: 'Stock Removal Control Indicator'
+  Ewmstockremovalcontrolstrategy;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehouseStock', position: 20, label:'Stock Determination Group'}]
+  @EndUserText.label: 'Stock Determination Group'
+  Ewmstockdeterminationgroup;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehouseStock', position: 30, label:'Two-Step Picking'}]
+  Prodisrlvtfortwosteppicking;
+
+  @UI.fieldGroup: [{qualifier: 'EWMWarehouseStock', position: 40, label:'Staging Area or Door Determination Group'}]
+  @EndUserText.label: 'Staging Area or Door Determination Group'
+  Ewmstggareadeterminationgroup;
+
+  @UI.hidden: true
+  Ewmqltymgmtgdsrcptblkctrltext;
+
+  @UI.hidden: true
+  Ewmisdocumentarybatchtext;
+
+}

@@ -1,0 +1,106 @@
+@Metadata.layer: #CORE
+@UI.headerInfo:{
+    typeName: 'Valuation Area',
+    typeNamePlural: 'Valuation Areas',
+    title:  {value: 'ValuationAreaForEdit'},
+    imageUrl: '_Product.ProductImageURL'
+}
+annotate view ZC_POC_PRODUCT_07 with
+{
+  @UI.hidden: true
+  Product;
+  @UI.hidden: true
+  ValuationArea;
+  @UI.hidden: true
+  ValuationType;
+  @Search.defaultSearchElement: true
+  @Search.fuzzinessThreshold: 0.8
+  @UI.lineItem :[{position:10, importance:#HIGH, label: 'Valuation Area'}]
+  @UI.fieldGroup:[{qualifier: 'ValGeneralData',position: 10, groupLabel: 'Valuation General Data', label: 'Valuation Area'}]
+  ValuationAreaForEdit;
+  @UI.lineItem:[{
+     position: 15,
+     label: 'Valuation Type',
+      importance: #MEDIUM
+  }]
+  @UI.fieldGroup:[{qualifier: 'ValGeneralData',position: 40,label: 'Valuation Type'}]
+  ValuationTypeForEdit;
+  @UI.fieldGroup:[{qualifier: 'ValGeneralData',position: 50,label:'Marked for Deletion'}]
+  @UI.lineItem:[{
+          position:90,
+          label:'Marked for Deletion',
+          importance:#LOW
+        }]
+  IsMarkedForDeletion;
+  @UI.lineItem : [{
+      position:40,
+      label:'Valuation Class',
+      importance:#HIGH
+      }]
+  @UI.fieldGroup:[{qualifier: 'GenData2',position: 10}]
+  ValuationClass;
+  @UI.fieldGroup:[{qualifier: 'ValGeneralData',position: 30,label:'Price Control Determination'}]
+  @UI.lineItem : [{
+              position:20,
+              label:'Price Control Determination',
+              importance:#MEDIUM
+          }]
+  PriceDeterminationControl;
+  @UI.fieldGroup: [{
+      qualifier: 'CurrentValuation1',
+      groupLabel:'Current Valuation1',
+      position: 20,
+      label:'Price Control Indicator',
+      importance: #HIGH
+  }]
+  @UI.hidden: true
+  InventoryValuationProcedure;
+  @UI.fieldGroup:[{qualifier: 'ValGeneralData',position: 20}]
+  @UI.lineItem : [{ position:30, importance:#MEDIUM}]
+  ValuationCategory;
+  @UI.fieldGroup:[{qualifier:'Determination',position: 10,label: 'Usage of the Product',groupLabel: 'Determination'}]
+  ProductUsageType;
+  @UI.fieldGroup:[{qualifier:'Determination',position: 20,label: 'Origin of the Product'}]
+  ProductOriginType;
+  @UI.fieldGroup:[{qualifier:'Determination',position: 30}]
+  IsProducedInHouse;
+  @UI.hidden: true
+  ProductType;
+  @UI.fieldGroup:[{qualifier: 'GenData2',position: 30,label:'Valuation Class for Sales Order Stock'}]
+  @EndUserText.label: 'Valuation Class for Sales Order Stock'
+  ValuationClassSalesOrderStock;
+  @UI.fieldGroup:[{qualifier: 'GenData2',position: 40,label:'Valuation Class for Project Stock'}]
+  @EndUserText.label: 'Valuation Class for Project Stock'
+  ProjectStockValuationClass;
+  //  @UI.fieldGroup:[{qualifier:'PlannedPrices',position: 10,label: 'Planned Price 1',groupLabel: 'Planned Prices'}]
+  //  PlannedPrice1InCoCodeCrcy;
+  //  @UI.fieldGroup:[{qualifier:'PlannedPrices',position: 20,label: 'Planned Price date 1'}]
+  //  FuturePlndPrice1ValdtyDate;
+  //  @UI.fieldGroup:[{qualifier:'PlannedPrices',position: 30,label: 'Planned Price 2'}]
+  //  PlannedPrice2InCoCodeCrcy;
+  //  @UI.fieldGroup:[{qualifier:'PlannedPrices',position: 40,label: 'Planned Price date 2'}]
+  //  FuturePlndPrice2ValdtyDate;
+  //  @UI.fieldGroup:[{qualifier:'PlannedPrices',position: 50,label: 'Planned Price 3'}]
+  //  PlannedPrice3InCoCodeCrcy;
+  //  @UI.fieldGroup:[{qualifier:'PlannedPrices',position: 60,label: 'Planned Price date 3'}]
+  //  FuturePlndPrice3ValdtyDate;
+  @UI.fieldGroup:[{qualifier:'PriceLastChangeDate',position: 10,label: 'Last Price Change'}]
+  PriceLastChangeDate;
+  @UI.lineItem:[{
+                 position:80,
+                 label:'Split Indicator',
+                 importance:#LOW
+               }]
+  CharcValue;
+  @UI.fieldGroup:[{ qualifier:'PriceLastChangeDate', position: 20, label: 'Current Period for Leading Ledger', importance: #HIGH}]
+  @EndUserText.label: 'Current Period for Leading Ledger'
+  FiscalMonthCurrentPeriod;
+  @UI.fieldGroup:[{ qualifier:'PriceLastChangeDate', position: 30, label: 'Fiscal Year', importance: #HIGH}]
+  @EndUserText.label: 'Fiscal Year of Current Period for Ledger'
+  FiscalYearCurrentPeriod;
+  @UI.hidden: true
+  ProdCostEstNumber;
+  @UI.hidden: true
+  PriceUnitQty; // field is exposed from C_Productvaluationprices
+
+}

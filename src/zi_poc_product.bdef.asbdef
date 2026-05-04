@@ -1,0 +1,687 @@
+managed implementation in class zbp_i_poc_product unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZI_POC_PRODUCT alias Product
+persistent table zproduct
+draft table zproduct_d
+lock master
+total etag LastUpdatedAt
+authorization master ( global, instance )
+etag master LocalLastUpdatedAt
+{
+  create ( authorization : global );
+  update;
+  delete;
+
+  determination syncToS4HANA on save { create; }
+  determination triggerWorkflow on save { create; }
+
+  field ( readonly : update ) Product;
+  association _ProductDescription { create; with draft; }
+  association _ProductSales { create; with draft; }
+  association _ProductProcurement { create; with draft; }
+  association _ProductPlant { create; with draft; }
+  association _ProductSalesDelivery { create; with draft; }
+  association _ProductUnitOfMeasure { create; with draft; }
+  association _ProductValuation { create; with draft; }
+  association _ProductStorage { create; with draft; }
+  association _ProductQualityManagement { create; with draft; }
+  association _ProductEWMWarehouse { create; with draft; }
+  association _ProductChangeMaster { create; with draft; }
+  association _ProductBasicText { create; with draft; }
+  association _ProductInspectionText { create; with draft; }
+  association _ProductPurchaseOrderText { create; with draft; }
+  association _ProductInternalComment { create; with draft; }
+
+  draft action ( features : instance ) Edit;
+  draft action Activate optimized with additional implementation;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  static default factory action createProduct parameter ZA_POC_PRODUCT_01 [1];
+
+  action ( features : instance ) ReSendRequest result [1] $self;
+
+
+  mapping for zproduct corresponding
+    {
+      Product                        = product;
+      ProductExternalId              = productexternalid;
+      ProductForEdit                 = productforedit;
+      ProductDescription             = productdescription;
+      ProductTypeCode                = producttypecode;
+      CrossPlantStatus               = crossplantstatus;
+      CrossPlantStatusValidityDate   = crossplantstatusvaliditydate;
+      ProductGroup                   = productgroup;
+      BaseUnit                       = baseunit;
+      IsMarkedForDeletion            = ismarkedfordeletion;
+      ProductOldId                   = productoldid;
+      GrossWeight                    = grossweight;
+      WeightUnit                     = weightunit;
+      NetWeight                      = netweight;
+      VolumeUnit                     = volumeunit;
+      MaterialVolume                 = materialvolume;
+      CompetitorId                   = competitorid;
+      ItemCategoryGroup              = itemcategorygroup;
+      ProductHierarchy               = producthierarchy;
+      Division                       = division;
+      BasicMaterial                  = basicmaterial;
+      AnpCode                        = anpcode;
+      Brand                          = brand;
+      ValidityStartDate              = validitystartdate;
+      ProdNoInGenProdInPrepackProd   = prodnoingenprodinprepackprod;
+      SizeOrDimensionText            = sizeordimensiontext;
+      IndustryStandardName           = industrystandardname;
+      ProductStandardId              = productstandardid;
+      InternationalArticleNumberCat  = internationalarticlenumbercat;
+      ProductIsConfigurable          = productisconfigurable;
+      IsBatchManagementRequired      = isbatchmanagementrequired;
+      ExternalProductGroup           = externalproductgroup;
+      CrossPlantConfigurableProduct  = crossplantconfigurableproduct;
+      SerialNoExplicitnessLevel      = serialnoexplicitnesslevel;
+      ProductManufacturerNumber      = productmanufacturernumber;
+      ManufacturerNumber             = manufacturernumber;
+      ManufacturerPartProfile        = manufacturerpartprofile;
+      ProductImageUrl                = productimageurl;
+      BaseUnitSpecificProductLength  = baseunitspecificproductlength;
+      BaseUnitSpecificProductWidth   = baseunitspecificproductwidth;
+      BaseUnitSpecificProductHeight  = baseunitspecificproductheight;
+      ProductMeasurementUnit         = productmeasurementunit;
+      ArticleCategory                = articlecategory;
+      ContentUnit                    = contentunit;
+      NetContent                     = netcontent;
+      ComparisonPriceQuantity        = comparisonpricequantity;
+      GrossContent                   = grosscontent;
+      ProductValidEndDate            = productvalidenddate;
+      AssortmentListType             = assortmentlisttype;
+      HasTextilePartsWThanimalOrigin = hastextilepartswthanimalorigin;
+      ProductSeasonUsageCategory     = productseasonusagecategory;
+      ServiceAgreement               = serviceagreement;
+      RegionOfOrigin                 = regionoforigin;
+      CountryOfOrigin                = countryoforigin;
+      GoodsIssueUnit                 = goodsissueunit;
+      ConsumptionValueCategory       = consumptionvaluecategory;
+      ValuationClass                 = valuationclass;
+      ValuationMargin                = valuationmargin;
+      ChangeNumber                   = changenumber;
+      MaterialRevisionLevel          = materialrevisionlevel;
+      HandlingIndicator              = handlingindicator;
+      WarehouseProductGroup          = warehouseproductgroup;
+      WarehouseStorageCondition      = warehousestoragecondition;
+      StandardHandlingUnitType       = standardhandlingunittype;
+      SerialNumberProfile            = serialnumberprofile;
+      AdjustmentProfile              = adjustmentprofile;
+      IsPilferable                   = ispilferable;
+      IsRelevantForHzds              = isrelevantforhzds;
+      QuarantinePeriod               = quarantineperiod;
+      TimeUnitForQuarantinePeriod    = timeunitforquarantineperiod;
+      QualityInspectionGroup         = qualityinspectiongroup;
+      HandlingUnitType               = handlingunittype;
+      MaximumCapacity                = maximumcapacity;
+      OverCapacityTolerance          = overcapacitytolerance;
+      HasVariableTareWeight          = hasvariabletareweight;
+      UnitForMaxPackagingDimensions  = unitformaxpackagingdimensions;
+      MaximumPackagingLength         = maximumpackaginglength;
+      MaximumPackagingWidth          = maximumpackagingwidth;
+      MaximumPackagingHeight         = maximumpackagingheight;
+      HasEmptiesBom                  = hasemptiesbom;
+      ClassificationSideEffect       = classificationsideeffect;
+      ConfigurationSideEffect        = configurationsideeffect;
+      AuthorizationGroup             = authorizationgroup;
+      IsChemicalComplianceRelevant   = ischemicalcompliancerelevant;
+      HasGlobalHierarchy             = hasglobalhierarchy;
+      IsVariantConfigurationEnabled  = isvariantconfigurationenabled;
+      NumberOfProductVariants        = numberofproductvariants;
+      NumberOfProcessedProdVariants  = numberofprocessedprodvariants;
+      OverCapacityToleranceUnit      = overcapacitytoleranceunit;
+      ReferenceProduct               = referenceproduct;
+      SalesUnit                      = salesunit;
+      LaboratoryOrDesignOffice       = laboratoryordesignoffice;
+      PackagingMaterialGroup         = packagingmaterialgroup;
+      ProductDocumentNumber          = productdocumentnumber;
+      ProductDocumentVersion         = productdocumentversion;
+      ProductDocumentType            = productdocumenttype;
+      ProductDocumentChangeNumber    = productdocumentchangenumber;
+      ProductDocumentPageCount       = productdocumentpagecount;
+      ProductDocumentPageNumber      = productdocumentpagenumber;
+      ProductDocumentPageFormat      = productdocumentpageformat;
+      OwnInventoryManagedProduct     = owninventorymanagedproduct;
+      ProductIsLocked                = productislocked;
+      CreatedBy                      = created_by;
+      CreatedAt                      = created_at;
+      LastUpdatedBy                  = last_updated_by;
+      LastUpdatedAt                  = last_updated_at;
+      LocalLastUpdatedAt             = local_last_updated_at;
+    }
+}
+
+define behavior for ZI_POC_PRODUCT_01 alias _ProductDescription
+persistent table zproduct_01
+draft table zproduct_01_d
+lock dependent by _Product
+authorization dependent by _Product
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly : update ) Product, Language;
+  association _Product { with draft; }
+
+  mapping for zproduct_01 corresponding
+    {
+      Product            = product;
+      Language           = language;
+      ProductForEdit     = productforedit;
+      LanguageForEdit    = languageforedit;
+      LanguageIsoCode    = languageisocode;
+      ProductDescription = productdescription;
+      LanguageName       = languagename;
+    }
+}
+
+define behavior for ZI_POC_PRODUCT_02 alias _ProductSales
+persistent table zproduct_02
+draft table zproduct_02_d
+lock dependent by _Product
+authorization dependent by _Product
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly : update ) Product;
+  association _Product { with draft; }
+
+  mapping for zproduct_02 corresponding
+    {
+      Product                       = product;
+      SalesStatus                   = salesstatus;
+      SalesStatusValidityDate       = salesstatusvaliditydate;
+      TaxClassification             = taxclassification;
+      TransportationGroup           = transportationgroup;
+      PricingReferenceProduct       = pricingreferenceproduct;
+      VariantsPricingProfile        = variantspricingprofile;
+      IsVariantPriceAllowed         = isvariantpriceallowed;
+      AllowedPackagingWeightQty     = allowedpackagingweightqty;
+      AllowedPackagingWeightQtyUnit = allowedpackagingweightqtyunit;
+      LoadingGroup                  = loadinggroup;
+      AuthorizationGroup            = authorizationgroup;
+      AllowedPackagingVolumeQty     = allowedpackagingvolumeqty;
+      AllowedPackagingVolumeQtyUnit = allowedpackagingvolumeqtyunit;
+      DistrCntrSaleStartDate        = distrcntrsalestartdate;
+      DistrCntrSaleEndDate          = distrcntrsaleenddate;
+      StoreSaleStartDate            = storesalestartdate;
+      StoreSaleEndDate              = storesaleenddate;
+      ExcessWeightTolerance         = excessweighttolerance;
+      ExcessVolumeTolerance         = excessvolumetolerance;
+      StackingFactor                = stackingfactor;
+      IsClosedPackagingMaterial     = isclosedpackagingmaterial;
+      VolumeMaximumLevel            = volumemaximumlevel;
+      PackagingMaterialType         = packagingmaterialtype;
+      ServiceDuration               = serviceduration;
+      ServiceDurationUnit           = servicedurationunit;
+      ServiceProfile                = serviceprofile;
+      ResponseProfile               = responseprofile;
+      CaBillgCycle                  = cabillgcycle;
+      SubscrpnProdBillgCycDetn      = subscrpnprodbillgcycdetn;
+      ContractAutoRenewalType       = contractautorenewaltype;
+    }
+}
+
+define behavior for ZI_POC_PRODUCT_03 alias _ProductProcurement
+persistent table zproduct_03
+draft table zproduct_03_d
+lock dependent by _Product
+authorization dependent by _Product
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly : update ) Product;
+  association _Product { with draft; }
+
+  mapping for zproduct_03 corresponding
+    {
+      Product                   = product;
+      PurchaseOrderQuantityUnit = purchaseorderquantityunit;
+      VarblPurOrdUnitStatus     = varblpurordunitstatus;
+      PurchasingAcknProfile     = purchasingacknprofile;
+      SourceOfSupplyCategory    = sourceofsupplycategory;
+      PurchasingGroup           = purchasinggroup;
+      AuthorizationGroup        = authorizationgroup;
+      StoreListingStartDate     = storelistingstartdate;
+      StoreListingEndDate       = storelistingenddate;
+      DistrCntrListingStartDate = distrcntrlistingstartdate;
+      DistrCntrListingEndDate   = distrcntrlistingenddate;
+      DistrCntrListingProcedure = distrcntrlistingprocedure;
+      StoreListingProcedure     = storelistingprocedure;
+      AssortmentGrade           = assortmentgrade;
+      ProdExtAssortmentPriority = prodextassortmentpriority;
+    }
+
+}
+
+define behavior for ZI_POC_PRODUCT_04 alias _ProductPlant
+persistent table zproduct_04
+draft table zproduct_04_d
+lock dependent by _Product
+authorization dependent by _Product
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly : update ) Product, Plant;
+  association _Product { with draft; }
+
+  mapping for zproduct_04 corresponding
+    {
+      Product                       = product;
+      Plant                         = plant;
+      ProductForEdit                = productforedit;
+      PlantForEdit                  = plantforedit;
+      ConfigurableProduct           = configurableproduct;
+      ProfileCode                   = profilecode;
+      ProfileValidityStartDate      = profilevaliditystartdate;
+      PeriodType                    = periodtype;
+      FiscalYearVariant             = fiscalyearvariant;
+      IsMarkedForDeletion           = ismarkedfordeletion;
+      PlantCategory                 = plantcategory;
+      FiscalMonthCurrentPeriod      = fiscalmonthcurrentperiod;
+      FiscalYearCurrentPeriod       = fiscalyearcurrentperiod;
+      GoodsIssueUnit                = goodsissueunit;
+      ProductCfopCategory           = productcfopcategory;
+      ConfigurationSideEffect       = configurationsideeffect;
+      ProfitCenter                  = profitcenter;
+      IsBatchManagementRequired     = isbatchmanagementrequired;
+      SerialNumberProfile           = serialnumberprofile;
+      IsNegativeStockAllowed        = isnegativestockallowed;
+      StockDeterminationGroup       = stockdeterminationgroup;
+      ControllingArea               = controllingarea;
+      IsVariantConfigurationEnabled = isvariantconfigurationenabled;
+      ProductIsExciseTaxRelevant    = productisexcisetaxrelevant;
+      ProductMaxControlTemperature  = productmaxcontroltemperature;
+      ProductMinControlTemperature  = productmincontroltemperature;
+      ProductControlTemperatureUnit = productcontroltemperatureunit;
+      ProductFreightGroup           = productfreightgroup;
+      CountryOfOrigin               = countryoforigin;
+    }
+}
+
+define behavior for ZI_POC_PRODUCT_05 alias _ProductSalesDelivery
+persistent table zproduct_05
+draft table zproduct_05_d
+lock dependent by _Product
+authorization dependent by _Product
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly : update ) Product, ProductSalesOrg, ProductDistributionChnl;
+  association _Product { with draft; }
+
+  mapping for zproduct_05 corresponding
+    {
+      Product                        = product;
+      ProductSalesOrg                = productsalesorg;
+      ProductDistributionChnl        = productdistributionchnl;
+      ProductForEdit                 = productforedit;
+      ProductSalesOrgForEdit         = productsalesorgforedit;
+      ProductDistributionChnlForEdit = productdistributionchnlforedit;
+      IsMarkedForDeletion            = ismarkedfordeletion;
+      MinimumOrderQuantity           = minimumorderquantity;
+      SupplyingPlant                 = supplyingplant;
+      PriceSpecificationProductGroup = pricespecificationproductgroup;
+      AccountDetnProductGroup        = accountdetnproductgroup;
+      DeliveryNoteProcMinDelivQty    = deliverynoteprocmindelivqty;
+      ItemCategoryGroup              = itemcategorygroup;
+      DeliveryQuantityUnit           = deliveryquantityunit;
+      DeliveryQuantity               = deliveryquantity;
+      ProductSalesStatus             = productsalesstatus;
+      ProductSalesStatusValidityDate = productsalesstatusvaliditydate;
+      SalesMeasureUnit               = salesmeasureunit;
+      ProductHierarchy               = producthierarchy;
+      FirstSalesSpecProductGroup     = firstsalesspecproductgroup;
+      SecondSalesSpecProductGroup    = secondsalesspecproductgroup;
+      ThirdSalesSpecProductGroup     = thirdsalesspecproductgroup;
+      FourthSalesSpecProductGroup    = fourthsalesspecproductgroup;
+      FifthSalesSpecProductGroup     = fifthsalesspecproductgroup;
+      MinimumMakeToOrderOrderQty     = minimummaketoorderorderqty;
+      LogisticsStatisticsGroup       = logisticsstatisticsgroup;
+      VolumeRebateGroup              = volumerebategroup;
+      ProductCommissionGroup         = productcommissiongroup;
+      CashDiscountIsDeductible       = cashdiscountisdeductible;
+      PricingReferenceProduct        = pricingreferenceproduct;
+      AssortmentGrade                = assortmentgrade;
+      ProdExtAssortmentPriority      = prodextassortmentpriority;
+      StoreListingProcedure          = storelistingprocedure;
+      DistrCntrListingProcedure      = distrcntrlistingprocedure;
+      StoreListingStartDate          = storelistingstartdate;
+      StoreListingEndDate            = storelistingenddate;
+      DistrCntrListingStartDate      = distrcntrlistingstartdate;
+      DistrCntrListingEndDate        = distrcntrlistingenddate;
+      StoreSaleStartDate             = storesalestartdate;
+      StoreSaleEndDate               = storesaleenddate;
+      DistrCntrSaleStartDate         = distrcntrsalestartdate;
+      DistrCntrSaleEndDate           = distrcntrsaleenddate;
+      RoundingProfile                = roundingprofile;
+      ProductUnitGroup               = productunitgroup;
+      MaxDeliveryQtyStoreOrder       = maxdeliveryqtystoreorder;
+      PriceFixingCategory            = pricefixingcategory;
+      VariableSalesUnitIsNotAllowed  = variablesalesunitisnotallowed;
+      CompetitionPressureCategory    = competitionpressurecategory;
+      HasActiveHierarchy             = hasactivehierarchy;
+      BaseUnit                       = baseunit;
+      ProdIsEntlMtrlvt               = prodisentlmtrlvt;
+      SubscrpnContrDfltDuration      = subscrpncontrdfltduration;
+      SubscrpnContrAltvDuration1     = subscrpncontraltvduration1;
+      SubscrpnContrAltvDuration2     = subscrpncontraltvduration2;
+      SubscrpnContrDurationUnit      = subscrpncontrdurationunit;
+      SubscrpnContrDfltExtnDurn      = subscrpncontrdfltextndurn;
+      SubscrpnContrAltvExtnDurn1     = subscrpncontraltvextndurn1;
+      SubscrpnContrAltvExtnDurn2     = subscrpncontraltvextndurn2;
+      SubscrpnContrExtnDurnUnit      = subscrpncontrextndurnunit;
+    }
+}
+
+define behavior for ZI_POC_PRODUCT_06 alias _ProductUnitOfMeasure
+persistent table zproduct_06
+draft table zproduct_06_d
+lock dependent by _Product
+authorization dependent by _Product
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly : update ) Product, AlternativeUnit;
+  association _Product { with draft; }
+
+  mapping for zproduct_06 corresponding
+    {
+      Product                       = product;
+      AlternativeUnit               = alternativeunit;
+      QuantityNumerator             = quantitynumerator;
+      QuantityDenominator           = quantitydenominator;
+      ProductVolume                 = productvolume;
+      VolumeUnit                    = volumeunit;
+      GrossWeight                   = grossweight;
+      WeightUnit                    = weightunit;
+      GlobalTradeItemNumber         = globaltradeitemnumber;
+      GlobalTradeItemNumberCategory = globaltradeitemnumbercategory;
+      UnitSpecificProductLength     = unitspecificproductlength;
+      UnitSpecificProductWidth      = unitspecificproductwidth;
+      UnitSpecificProductHeight     = unitspecificproductheight;
+      ProductMeasurementUnit        = productmeasurementunit;
+      LowerLevelPackagingUnit       = lowerlevelpackagingunit;
+      MaximumStackingFactor         = maximumstackingfactor;
+      CapacityUsage                 = capacityusage;
+      BaseUnit                      = baseunit;
+    }
+}
+
+define behavior for ZI_POC_PRODUCT_07 alias _ProductValuation
+persistent table zproduct_07
+draft table zproduct_07_d
+lock dependent by _Product
+authorization dependent by _Product
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly : update ) Product, ValuationArea, ValuationType;
+  association _Product { with draft; }
+
+  mapping for zproduct_07 corresponding
+    {
+      Product                       = product;
+      ValuationArea                 = valuationarea;
+      ValuationType                 = valuationtype;
+      ValuationAreaForEdit          = valuationareaforedit;
+      ValuationTypeForEdit          = valuationtypeforedit;
+      IsMarkedForDeletion           = ismarkedfordeletion;
+      ValuationClass                = valuationclass;
+      PriceDeterminationControl     = pricedeterminationcontrol;
+      PriceUnitQty                  = priceunitqty;
+      InventoryValuationProcedure   = inventoryvaluationprocedure;
+      ValuationCategory             = valuationcategory;
+      ProductUsageType              = productusagetype;
+      ProductOriginType             = productorigintype;
+      IsProducedInHouse             = isproducedinhouse;
+      ProdCostEstNumber             = prodcostestnumber;
+      ProductType                   = producttype;
+      ValuationClassSalesOrderStock = valuationclasssalesorderstock;
+      ProjectStockValuationClass    = projectstockvaluationclass;
+      PriceLastChangeDate           = pricelastchangedate;
+      Currency                      = currency;
+      CharcValue                    = charcvalue;
+      FiscalMonthCurrentPeriod      = fiscalmonthcurrentperiod;
+      FiscalYearCurrentPeriod       = fiscalyearcurrentperiod;
+    }
+}
+
+define behavior for ZI_POC_PRODUCT_08 alias _ProductStorage
+persistent table zproduct_08
+draft table zproduct_08_d
+lock dependent by _Product
+authorization dependent by _Product
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly : update ) Product;
+  association _Product { with draft; }
+
+  mapping for zproduct_08 corresponding
+    {
+      Product                       = product;
+      StorageConditions             = storageconditions;
+      TemperatureConditionInd       = temperatureconditionind;
+      HazardousMaterialNumber       = hazardousmaterialnumber;
+      NmbrOfGrOrgIsLipsToPrintQty   = nmbrofgrorgislipstoprintqty;
+      LabelType                     = labeltype;
+      LabelForm                     = labelform;
+      MinRemainingShelfLife         = minremainingshelflife;
+      ExpirationDate                = expirationdate;
+      StorageBinInstruction         = storagebininstruction;
+      TotalShelfLifeStoragePercent  = totalshelflifestoragepercent;
+      ShelfLifeExpirationDatePeriod = shelflifeexpirationdateperiod;
+      ShelfLifeExprtnDateRndingRule = shelflifeexprtndaterndingrule;
+      AuthorizationGroup            = authorizationgroup;
+      BaseUnit                      = baseunit;
+      ShelfLifeDurationUnit         = shelflifedurationunit;
+      TotalShelfLife                = totalshelflife;
+    }
+}
+
+define behavior for ZI_POC_PRODUCT_09 alias _ProductQualityManagement
+persistent table zproduct_09
+draft table zproduct_09_d
+lock dependent by _Product
+authorization dependent by _Product
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly : update ) Product;
+  association _Product { with draft; }
+
+  mapping for zproduct_09 corresponding
+    {
+      Product                  = product;
+      Qltymgmtinprocmtisactive = qltymgmtinprocmtisactive;
+      Authorizationgroup       = authorizationgroup;
+      Catalogprofile           = catalogprofile;
+    }
+}
+
+define behavior for ZI_POC_PRODUCT_10 alias _ProductEWMWarehouse
+persistent table zproduct_10
+draft table zproduct_10_d
+lock dependent by _Product
+authorization dependent by _Product
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly : update ) Product, Warehouse, Businesspartner;
+  association _Product { with draft; }
+
+  mapping for zproduct_10 corresponding
+    {
+      Product                        = product;
+      Warehouse                      = warehouse;
+      Businesspartner                = businesspartner;
+      Businesspartnerforedit         = businesspartnerforedit;
+      Plant                          = plant;
+      Warehouseforedit               = warehouseforedit;
+      Productuuid                    = productuuid;
+      Supplychainunituuid            = supplychainunituuid;
+      Businesspartneruuid            = businesspartneruuid;
+      Ewmproductprocessblockprofile  = ewmproductprocessblockprofile;
+      Ewmwarehouseprocesstype        = ewmwarehouseprocesstype;
+      Ewmproductloadcategory         = ewmproductloadcategory;
+      Ewmphysinventorycountingcycle  = ewmphysinventorycountingcycle;
+      Requiredminshelflife           = requiredminshelflife;
+      Requiredminshelflifecalc       = requiredminshelflifecalc;
+      Ewmprodbackflushwthdrwlmethod  = ewmprodbackflushwthdrwlmethod;
+      Ewmkitquantitycorrelation      = ewmkitquantitycorrelation;
+      Ewmiscnsmpnrlvtforvaladdedsrvc = ewmiscnsmpnrlvtforvaladdedsrvc;
+      Adjustmentprofile              = adjustmentprofile;
+      Ewmmrchdsdistrqtyclassfctn     = ewmmrchdsdistrqtyclassfctn;
+      Preferredunitofmeasure         = preferredunitofmeasure;
+      Ewmqltymgmtgdsrcptblkctrltext  = ewmqltymgmtgdsrcptblkctrltext;
+      Ewmisdocumentarybatchtext      = ewmisdocumentarybatchtext;
+      Ewmqltymgmtgdsrcptblkctrlkey   = ewmqltymgmtgdsrcptblkctrlkey;
+      Isdocumentarybatch             = isdocumentarybatch;
+      Ewmqualityinspectiongroup      = ewmqualityinspectiongroup;
+      Ewmptwycontrolstrategy         = ewmptwycontrolstrategy;
+      Ewmstoragesectionmethod        = ewmstoragesectionmethod;
+      Storagebintype                 = storagebintype;
+      Productbulkstoragemethod       = productbulkstoragemethod;
+      Ewmstockremovalcontrolstrategy = ewmstockremovalcontrolstrategy;
+      Ewmstockdeterminationgroup     = ewmstockdeterminationgroup;
+      Prodisrlvtfortwosteppicking    = prodisrlvtfortwosteppicking;
+      Ewmstggareadeterminationgroup  = ewmstggareadeterminationgroup;
+      Shelflifedurationunit          = shelflifedurationunit;
+    }
+}
+
+define behavior for ZI_POC_PRODUCT_11 alias _ProductChangeMaster
+persistent table zproduct_11
+draft table zproduct_11_d
+lock dependent by _Product
+authorization dependent by _Product
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly : update ) Product, Changenumber;
+  association _Product { with draft; }
+
+  mapping for zproduct_11 corresponding
+    {
+      Product       = product;
+      Changenumber  = changenumber;
+      Revisionlevel = revisionlevel;
+    }
+}
+
+define behavior for ZI_POC_PRODUCT_12 alias _ProductBasicText
+persistent table zproduct_12
+draft table zproduct_12_d
+lock dependent by _Product
+authorization dependent by _Product
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly : update ) Product, Textobjecttype, Language;
+  association _Product { with draft; }
+
+  mapping for zproduct_12 corresponding
+    {
+      Product                        = product;
+      Textobjecttype                 = textobjecttype;
+      Language                       = language;
+      Productlongtext                = productlongtext;
+      Prodlongtxtcreationdatetime    = prodlongtxtcreationdatetime;
+      Createdbyuser                  = createdbyuser;
+      Prodlongtxtlastchangeddatetime = prodlongtxtlastchangeddatetime;
+      Lastchangedbyuser              = lastchangedbyuser;
+    }
+}
+
+define behavior for ZI_POC_PRODUCT_13 alias _ProductInspectionText
+persistent table zproduct_13
+draft table zproduct_13_d
+lock dependent by _Product
+authorization dependent by _Product
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly : update ) Product, Textobjecttype, Language;
+  association _Product { with draft; }
+
+  mapping for zproduct_13 corresponding
+    {
+      Product                        = product;
+      Textobjecttype                 = textobjecttype;
+      Language                       = language;
+      Productlongtext                = productlongtext;
+      Prodlongtxtcreationdatetime    = prodlongtxtcreationdatetime;
+      Createdbyuser                  = createdbyuser;
+      Prodlongtxtlastchangeddatetime = prodlongtxtlastchangeddatetime;
+      Lastchangedbyuser              = lastchangedbyuser;
+    }
+}
+
+define behavior for ZI_POC_PRODUCT_14 alias _ProductPurchaseOrderText
+persistent table zproduct_14
+draft table zproduct_14_d
+lock dependent by _Product
+authorization dependent by _Product
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly : update ) Product, Textobjecttype, Language;
+  association _Product { with draft; }
+
+  mapping for zproduct_14 corresponding
+    {
+      Product                        = product;
+      Textobjecttype                 = textobjecttype;
+      Language                       = language;
+      Productlongtext                = productlongtext;
+      Prodlongtxtcreationdatetime    = prodlongtxtcreationdatetime;
+      Createdbyuser                  = createdbyuser;
+      Prodlongtxtlastchangeddatetime = prodlongtxtlastchangeddatetime;
+      Lastchangedbyuser              = lastchangedbyuser;
+    }
+}
+
+define behavior for ZI_POC_PRODUCT_15 alias _ProductInternalComment
+persistent table zproduct_15
+draft table zproduct_15_d
+lock dependent by _Product
+authorization dependent by _Product
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly : update ) Product, Textobjecttype, Language;
+  association _Product { with draft; }
+
+  mapping for zproduct_15 corresponding
+    {
+      Product                        = product;
+      Textobjecttype                 = textobjecttype;
+      Language                       = language;
+      Productlongtext                = productlongtext;
+      Prodlongtxtcreationdatetime    = prodlongtxtcreationdatetime;
+      Createdbyuser                  = createdbyuser;
+      Prodlongtxtlastchangeddatetime = prodlongtxtlastchangeddatetime;
+      Lastchangedbyuser              = lastchangedbyuser;
+    }
+}

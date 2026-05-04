@@ -1,0 +1,46 @@
+@Metadata.layer: #CORE
+@UI.headerInfo:{
+  typeName: 'Unit of Measure',
+  typeNamePlural: 'Units of Measure',
+//  title:  { value: 'UnitOfMeasureLongName' },
+//  description: {value:'AlternativeUnitForEdit'},
+  imageUrl: '_Product.ProductImageURL'
+}
+annotate view ZC_POC_PRODUCT_06 with
+{
+  @UI.hidden: true
+  Product;
+  @UI.hidden: true
+  AlternativeUnit;
+//  @UI.hidden : true
+//  productforedit;
+//  @UI.fieldGroup: [{qualifier: 'GeneralData',position: 10,label: 'Unit of Measure',groupLabel:'Unit of Measure'}]
+//  @UI.lineItem: [{position:10,label:'Unit of Measure' }]
+//  @EndUserText.label: 'Unit Of Measure'
+//  alternativeunitforedit;
+  @UI.fieldGroup: [{qualifier: 'UOMVolume',position: 10,groupLabel:'Unit of Measure Volume'}]
+  ProductVolume;
+//  @UI.fieldGroup: [{qualifier: 'UOMWeight',position: 20,label: 'Net Weight'}]
+//  netweight;
+  @UI.fieldGroup: [{qualifier: 'UOMWeight',position: 10,groupLabel:'Unit of Measure Weight'}]
+  GrossWeight;
+  @UI.lineItem: [{position:30,label:'Main GTIN'}]
+  GlobalTradeItemNumber;
+  @UI.lineItem: [{position:40,label:'GTIN Category'}]
+  GlobalTradeItemNumberCategory;
+  @UI.fieldGroup: [{qualifier: 'UOMMeasurement',position: 30}]
+  UnitSpecificProductHeight;
+  @UI.fieldGroup: [{qualifier: 'UOMMeasurement',position: 10,groupLabel:'Unit of Measure Measurements'}]
+  UnitSpecificProductLength;
+  @UI.fieldGroup: [{qualifier: 'UOMMeasurement',position: 20}]
+  UnitSpecificProductWidth;
+//  @UI.fieldGroup: [{qualifier: 'EWMPackUnit', position: 30,label: 'Remaining Volume After Nesting', groupLabel:'EWM Packaging for Alternative Units'}]
+//  @EndUserText.label: 'Remaining Volume After Nesting'
+//  remainingvolumeafternesting;
+  @UI.fieldGroup: [{qualifier: 'EWMPackUnit', position: 10,label: 'Maximum Stacking Factor'}]
+  MaximumStackingFactor;
+  @UI.fieldGroup: [{qualifier: 'EWMPackUnit', position: 20}]
+  CapacityUsage;
+//  @Consumption.filter.hidden: true
+//  remainingvolafternestingunit;
+}
