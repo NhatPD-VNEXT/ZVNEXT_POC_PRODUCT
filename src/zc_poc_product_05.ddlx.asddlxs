@@ -17,11 +17,11 @@ annotate view ZC_POC_PRODUCT_05 with
   @UI.hidden: true
   ProductForEdit;
   @UI: {
-     lineItem : [{ position:10, importance: #HIGH}],
+     lineItem : [{ position:10, importance: #HIGH, label: 'Sales Organization'}],
      fieldGroup:[{qualifier: 'SalesGeneralData',position: 10, groupLabel: 'General Sales'}]
   }
   ProductSalesOrgForEdit;
-  @UI.lineItem:[{position:20, importance: #HIGH}]
+  @UI.lineItem:[{position:20, importance: #HIGH, label: 'Distribution Channel'}]
   @UI.fieldGroup:[{qualifier: 'SalesGeneralData', position: 20}]
   ProductDistributionChnlForEdit;
   @UI.lineItem:[{position:70, label:'Marked for Deletion', importance:#LOW}]

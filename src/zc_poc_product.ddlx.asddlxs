@@ -145,57 +145,60 @@ annotate view ZC_POC_PRODUCT with
         position: 30 },
 
     // ================= DISTRIBUTION =================
-    { id: 'DistributionChains', type: #COLLECTION, label: '{@i18n>DistributionChains}', position: 100 },
-    { id: 'DistributionChains_Main', parentId: 'DistributionChains',
+  //    { id: 'DistributionChains', type: #COLLECTION, label: '{@i18n>DistributionChains}', position: 100 },
+    { id: 'DistributionChains_Main',
+  //      parentId: 'DistributionChains',
       type: #LINEITEM_REFERENCE,
       label: '{@i18n>Distribution}',
       targetElement: '_ProductSalesDelivery',
-      position: 10 },
+      position: 100 },
 
     // ================= PLANTS =================
-    { id: 'Plants', type: #COLLECTION, label: '{@i18n>Plants}', position: 110 },
-    { id: 'Plants_Main', parentId: 'Plants',
+  //    { id: 'Plants', type: #COLLECTION, label: '{@i18n>Plants}', position: 110 },
+    { id: 'Plants_Main',
+  //      parentId: 'Plants',
       type: #LINEITEM_REFERENCE,
       label: '{@i18n>Plants}',
       targetElement: '_ProductPlant',
-      position: 10 },
+      position: 110 },
 
     // ================= VALUATION =================
-    { id: 'ValuationAreas', type: #COLLECTION, label: '{@i18n>ValuationAreas}', position: 120 },
-    { id: 'ValuationAreas_Main', parentId: 'ValuationAreas',
+  //    { id: 'ValuationAreas', type: #COLLECTION, label: '{@i18n>ValuationAreas}', position: 120 },
+    { id: 'ValuationAreas_Main',
+  //      parentId: 'ValuationAreas',
       type: #LINEITEM_REFERENCE,
       label: '{@i18n>ValuationAreas}',
       targetElement: '_ProductValuation',
-      position: 10 },
+      position: 120 }
 
     // ================= NOTES =================
-    { id: 'Notes', type: #COLLECTION, label: '{@i18n>Notes}', position: 130 },
-
-      { id: 'BasicText', parentId: 'Notes',
-        type: #LINEITEM_REFERENCE,
-        label: '{@i18n>BasicText}',
-        targetElement: '_ProductBasicText',
-        position: 10 },
-
-      { id: 'InspectionText', parentId: 'Notes',
-        type: #LINEITEM_REFERENCE,
-        label: '{@i18n>InspectionText}',
-        targetElement: '_ProductInspectionText',
-        position: 20 },
-
-      { id: 'InternalComment', parentId: 'Notes',
-        type: #LINEITEM_REFERENCE,
-        label: '{@i18n>InternalComment}',
-        targetElement: '_ProductInternalComment',
-        position: 30 },
-
-      { id: 'PurchaseOrderText', parentId: 'Notes',
-        type: #LINEITEM_REFERENCE,
-        label: '{@i18n>PurchaseOrderText}',
-        targetElement: '_ProductPurchaseOrderText',
-        position: 40 }
-
-  ]
+  //    { id: 'Notes', type: #COLLECTION, label: '{@i18n>Notes}', position: 130 },
+  //
+  //      { id: 'BasicText', parentId: 'Notes',
+  //        type: #LINEITEM_REFERENCE,
+  //        label: '{@i18n>BasicText}',
+  //        targetElement: '_ProductBasicText',
+  //        position: 10 },
+  //
+  //      { id: 'InspectionText', parentId: 'Notes',
+  //        type: #LINEITEM_REFERENCE,
+  //        label: '{@i18n>InspectionText}',
+  //        targetElement: '_ProductInspectionText',
+  //        position: 20 },
+  //
+  //      { id: 'InternalComment', parentId: 'Notes',
+  //        type: #LINEITEM_REFERENCE,
+  //        label: '{@i18n>InternalComment}',
+  //        targetElement: '_ProductInternalComment',
+  //        position: 30 },
+  //
+  //      { id: 'PurchaseOrderText', parentId: 'Notes',
+  //        type: #LINEITEM_REFERENCE,
+  //        label: '{@i18n>PurchaseOrderText}',
+  //        targetElement: '_ProductPurchaseOrderText',
+  //        position: 40 }
+  //
+    ]
   @UI.identification: [
       {
         position: 10,
@@ -206,16 +209,30 @@ annotate view ZC_POC_PRODUCT with
     ]
     //  @UI.hidden: true
     //  Product;
-  @UI.lineItem: [
-      {
-        position: 10,
-        type: #FOR_ACTION,
-        dataAction: 'ReSendRequest',
-        label: 'Re-send Request'
-      }
-  ]
+  //  @UI.lineItem: [
+  //      { type: #FOR_ACTION,
+  //        dataAction: 'createProduct',
+  //        label: 'Create Master Data Record',
+  //        position: 10 },
+  //      {
+  //        position: 20,
+  //        type: #FOR_ACTION,
+  //        dataAction: 'ReSendRequest',
+  //        label: 'Re-send Request'
+  //      }
+  //  ]
   @UI.hidden: true
   ProductExternalId;
+
+
+  @UI.lineItem: [
+    {
+      position: 10,
+      label: 'Approval Status',
+      criticality: 'CriticalityStatus'
+    }
+  ]
+  StatusMessage;
 
   @UI.lineItem: [ { position: 10, label: '{@i18n>DescriptionId}', importance: #HIGH },
                   { qualifier: 'duplicateCheck', position: 10, label: '{@i18n>ProductNumber}' } ]
@@ -319,9 +336,8 @@ annotate view ZC_POC_PRODUCT with
 
   @UI.fieldGroup: [ { qualifier: 'BasicDataCol4',
                       position: 10,
-                      label: '{@i18n>CreatedBy}',
-                      groupLabel: '{@i18n>BasicData}',
-                      type: #AS_CONTACT } ]
+                      label: '{@i18n>CreatedOn}',
+                      groupLabel: '{@i18n>BasicData}' } ]
   CreatedBy;
 
   @UI.fieldGroup: [ { qualifier: 'BasicDataCol4',
@@ -330,12 +346,23 @@ annotate view ZC_POC_PRODUCT with
                       groupLabel: '{@i18n>BasicData}' } ]
   CreatedAt;
 
+  //  @UI.fieldGroup: [ { qualifier: 'BasicDataCol5',
+  //                      position: 10,
+  //                      label: '{@i18n>LastChangedBy}',
+  //                      groupLabel: '{@i18n>BasicData}'},
+  //                    { qualifier: 'LastChangedInLineItem', position: 20, type: #AS_CONTACT } ]
   @UI.fieldGroup: [ { qualifier: 'BasicDataCol5',
                       position: 10,
-                      label: '{@i18n>LastChangedBy}',
-                      groupLabel: '{@i18n>BasicData}',
-                      type: #AS_CONTACT },
-                    { qualifier: 'LastChangedInLineItem', position: 20, type: #AS_CONTACT } ]
+                      label: '{@i18n>LastChangedOn}',
+                      groupLabel: '{@i18n>BasicData}' },
+                    { qualifier: 'LastChangedInLineItem',
+                      position: 10,
+                      label: '{@i18n>LastChangedOn}',
+                      groupLabel: '{@i18n>LastChangedOn}' } ]
+  @UI.lineItem: [ { position: 40,
+                    type: #AS_FIELDGROUP,
+                    label: '{@i18n>LastChanged}',
+                    valueQualifier: 'LastChangedInLineItem' } ]
   LastUpdatedBy;
 
   @UI.fieldGroup: [ { qualifier: 'BasicDataCol5',
@@ -495,6 +522,7 @@ annotate view ZC_POC_PRODUCT with
   GrossContent;
 
   @UI.fieldGroup: [ { qualifier: 'ProductSales2', position: 10, groupLabel: '{@i18n>ProductSales2}' } ]
+  @UI.hidden: true
   AssortmentListType;
 
   @UI.fieldGroup: [ { qualifier: 'Statuses',   position: 50 },
@@ -502,6 +530,7 @@ annotate view ZC_POC_PRODUCT with
   HasTextilePartsWThanimalOrigin;
 
   @UI.fieldGroup: [ { qualifier: 'ProductSales2', position: 20, label: '{@i18n>ServiceAgreement}' } ]
+  @UI.hidden: true
   ServiceAgreement;
 
   @UI.fieldGroup: [ { qualifier: 'ArticleReferenceValues', position: 110, label: '{@i18n>RegionOfOrigin}' } ]
@@ -568,10 +597,11 @@ annotate view ZC_POC_PRODUCT with
   @UI.fieldGroup: [ { qualifier: 'EWMQltyMgmt', position: 20, label: '{@i18n>QualityInspectionGroup}' } ]
   QualityInspectionGroup;
 
-  @UI.fieldGroup: [ { qualifier: 'EWMGeneralPack', position: 10, groupLabel: '{@i18n>ExtendedWarehouseManagement}' } ]
+  @EndUserText.label: '{@i18n>HandlingUnitType}'
+  @UI.fieldGroup: [ { qualifier: 'EWMGeneralPack', position: 10, label: '{@i18n>HandlingUnitType}', groupLabel: '{@i18n>ExtendedWarehouseManagement}' } ]
   HandlingUnitType;
-
-  @UI.fieldGroup: [ { qualifier: 'EWMGeneralPack', position: 20 } ]
+  @EndUserText.label: '{@i18n>MaximumCapacity}'
+  @UI.fieldGroup: [ { qualifier: 'EWMGeneralPack', position: 20, label: '{@i18n>MaximumCapacity}' } ]
   MaximumCapacity;
 
   @EndUserText.label: '{@i18n>OvercapacityTolerance}'
@@ -603,7 +633,7 @@ annotate view ZC_POC_PRODUCT with
   @UI.fieldGroup: [ { qualifier: 'Groupings', position: 40 } ]
   AuthorizationGroup;
 
-  @Consumption.filter.hidden: true
+  //  @Consumption.filter.hidden: true
   @UI.fieldGroup: [ { qualifier: 'ProductCompliance',
                       groupLabel: '{@i18n>ProductCompliance}',
                       label: '{@i18n>ComplianceRelevant}',

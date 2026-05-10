@@ -12,11 +12,11 @@ annotate view ZC_POC_PRODUCT_01 with
 {
   @UI.hidden: true
   Product;
-  @UI.lineItem : [{ position:20, importance:#HIGH}]
+  @UI.hidden: true
   Language;
   @UI.hidden: true
   ProductForEdit;
-  @UI.hidden: true
+  @UI.lineItem : [{ position:20, importance:#HIGH}]
   LanguageForEdit;
   @UI.hidden: true
   LanguageIsoCode;

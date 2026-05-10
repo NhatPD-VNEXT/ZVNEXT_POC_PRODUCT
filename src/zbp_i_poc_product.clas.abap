@@ -1,5 +1,7 @@
 CLASS zbp_i_poc_product DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zi_poc_product.
+
 ENDCLASS.
 
 CLASS zbp_i_poc_product IMPLEMENTATION.
 ENDCLASS.
+

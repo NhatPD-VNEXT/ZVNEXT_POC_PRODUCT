@@ -12,7 +12,7 @@ define view entity ZI_POC_PRODUCT_05
       productforedit                 as ProductForEdit,
       productsalesorgforedit         as ProductSalesOrgForEdit,
       productdistributionchnlforedit as ProductDistributionChnlForEdit,
-      ismarkedfordeletion            as IsMarkedForDeletion,
+      cast( ismarkedfordeletion     as abap_boolean ) as IsMarkedForDeletion,
       
       @Semantics.quantity.unitOfMeasure: 'BaseUnit'
       minimumorderquantity           as MinimumOrderQuantity,

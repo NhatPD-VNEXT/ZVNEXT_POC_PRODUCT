@@ -24,7 +24,7 @@ annotate view ZC_POC_PRODUCT_04 with
 
   @UI: {
      fieldGroup: [{qualifier: 'PlantGeneralData', position: 10 }],
-     lineItem : [{ position:10}]
+     lineItem : [{ position:10, label:'Plant'}]
   }
   @Search.defaultSearchElement: true
   PlantForEdit;
@@ -34,14 +34,16 @@ annotate view ZC_POC_PRODUCT_04 with
   ConfigurableProduct;
 
   @UI: {
-     fieldGroup: [{qualifier: 'PlantGeneralData',position: 20,label:'Plant-Specific Product Status'}]
+     fieldGroup: [{qualifier: 'PlantGeneralData',position: 20,label:'Plant-Specific Product Status'}],
+     lineItem: [{position:20, label:'Plant-Specific Product Status'}]
   }
   @UI.textArrangement: #TEXT_FIRST
   @EndUserText.label: 'Plant-Specific Product Status'
   ProfileCode;
 
   @UI: {
-     fieldGroup: [{qualifier: 'PlantGeneralData',position: 30,label:'Valid From Date for Status'}]
+     fieldGroup: [{qualifier: 'PlantGeneralData',position: 30,label:'Valid From Date for Status'}],
+     lineItem: [{position:30, label:'Valid From Date for Status'}]
   }
   ProfileValidityStartDate;
 
@@ -58,7 +60,7 @@ annotate view ZC_POC_PRODUCT_04 with
 
   @UI: {
      fieldGroup: [{qualifier: 'PlantGeneralData', label:'Marked for Deletion', position: 140}],
-     lineItem: [{position:70, label:'Marked for Deletion'}]
+     lineItem: [{position:110, label:'Marked for Deletion'}]
    }
   IsMarkedForDeletion;
 
@@ -69,7 +71,8 @@ annotate view ZC_POC_PRODUCT_04 with
   FiscalYearCurrentPeriod;
 
   @UI: {
-      fieldGroup: [{qualifier: 'PlantGeneralData', position: 50, label: 'Unit of Issue'}]
+      fieldGroup: [{qualifier: 'PlantGeneralData', position: 50, label: 'Unit of Issue'}],
+      lineItem: [{position:50, label:'Unit of Issue'}]
   }
   GoodsIssueUnit;
 
@@ -82,27 +85,32 @@ annotate view ZC_POC_PRODUCT_04 with
   ConfigurationSideEffect;
 
   @UI: {
-     fieldGroup: [{qualifier: 'PlantGeneralData',position: 40}]
+     fieldGroup: [{qualifier: 'PlantGeneralData',position: 40}],
+     lineItem: [{position:40, label:'Profit Center'}]
   }
   ProfitCenter;
 
   @UI: {
-     fieldGroup: [{qualifier: 'PlantGeneralData', position: 60, label:'Batch Management Required'}]
+     fieldGroup: [{qualifier: 'PlantGeneralData', position: 60, label:'Batch Management Required'}],
+     lineItem: [{position:60, label:'Batch Management Required'}]
   }
   IsBatchManagementRequired;
 
   @UI: {
-     fieldGroup: [{qualifier: 'PlantGeneralData', position: 70, label:'Serial Number Profile'}]
+     fieldGroup: [{qualifier: 'PlantGeneralData', position: 70, label:'Serial Number Profile'}],
+     lineItem: [{position:70, label:'Serial Number Profile'}]
   }
   SerialNumberProfile;
 
   @UI: {
-     fieldGroup: [{qualifier: 'PlantGeneralData', position: 80, label:'Negative Stocks Allowed in Plant'}]
+     fieldGroup: [{qualifier: 'PlantGeneralData', position: 80, label:'Negative Stocks Allowed in Plant'}],
+     lineItem: [{position:80, label:'Negative Stocks Allowed in Plant'}]
   }
   IsNegativeStockAllowed;
 
   @UI: {
-     fieldGroup: [{qualifier: 'PlantGeneralData', position: 90, label:'Stock Determination Group'}]
+     fieldGroup: [{qualifier: 'PlantGeneralData', position: 90, label:'Stock Determination Group'}],
+     lineItem: [{position:90, label:'Stock Determination Group'}]
   }
   StockDeterminationGroup;
 
@@ -113,21 +121,25 @@ annotate view ZC_POC_PRODUCT_04 with
   IsVariantConfigurationEnabled;
 
   @UI: {
-     fieldGroup: [{qualifier: 'PlantGeneralData', position: 130}]
+     fieldGroup: [{qualifier: 'PlantGeneralData', position: 130, label:'Is Excise Tax Relevant'}],
+     lineItem: [{position:100, label:'Is Excise Tax Relevant'}]
   }
   ProductIsExciseTaxRelevant;
 
   @UI: {
-     fieldGroup: [{qualifier: 'PlantGeneralData', position: 160}]
+     fieldGroup: [{qualifier: 'PlantGeneralData', position: 160}],
+     lineItem: [{position:130, label:'Max. Temperature'}]
   }
   ProductMaxControlTemperature;
   @UI: {
-     fieldGroup: [{qualifier: 'PlantGeneralData', position: 150}]
+     fieldGroup: [{qualifier: 'PlantGeneralData', position: 150}],
+     lineItem: [{position: 120, label:'Min. Temperature'}]
   }
   ProductMinControlTemperature;
 
   @UI: {
-    fieldGroup: [{qualifier: 'PlantGeneralData', position: 170, label:'Product Freight Group'}]
+    fieldGroup: [{qualifier: 'PlantGeneralData', position: 170, label:'Product Freight Group'}],
+    lineItem: [{position: 140, label:'Product Freight Group'}]
   }
   @EndUserText.label: 'Product Freight Group'
   ProductFreightGroup;

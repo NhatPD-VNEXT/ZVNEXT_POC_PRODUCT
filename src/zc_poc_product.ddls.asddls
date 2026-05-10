@@ -5,6 +5,8 @@
 define root view entity ZC_POC_PRODUCT
   provider contract transactional_query
   as projection on ZI_POC_PRODUCT
+   association [0..1] to ZI_ChemicalComplianceVH as _ChemicalComplianceVH 
+    on $projection.IsChemicalComplianceRelevant = _ChemicalComplianceVH.IsChemicalComplianceRelevant
 {
   key Product,
       ProductExternalId,
@@ -91,12 +93,27 @@ define root view entity ZC_POC_PRODUCT
       IsRelevantForHzds,
       @Semantics.quantity.unitOfMeasure: 'TimeUnitForQuarantinePeriod'
       QuarantinePeriod,
+      @Consumption.valueHelpDefinition: [{
+      entity: { name: 'I_UnitOfMeasureStdVH', element: 'UnitOfMeasure' },
+      additionalBinding: [{
+      element: 'UnitOfMeasureDimension',
+      usage: #FILTER
+      }]
+      }]
       TimeUnitForQuarantinePeriod,
       QualityInspectionGroup,
       HandlingUnitType,
       MaximumCapacity,
       OverCapacityTolerance,
       HasVariableTareWeight,
+      @Consumption.valueHelpDefinition: [{
+      entity: { name: 'I_UnitOfMeasureStdVH', element: 'UnitOfMeasure' },
+      additionalBinding: [{
+      element: 'UnitOfMeasureDimension',
+      localConstant: '''LENGTH''', 
+      usage: #FILTER
+      }]
+      }]
       UnitForMaxPackagingDimensions,
       @Semantics.quantity.unitOfMeasure: 'UnitForMaxPackagingDimensions'
       MaximumPackagingLength,
@@ -108,7 +125,11 @@ define root view entity ZC_POC_PRODUCT
       ClassificationSideEffect,
       ConfigurationSideEffect,
       AuthorizationGroup,
+      @ObjectModel.text.element: ['ComplianceRelevantText'] 
+      @Consumption.valueHelpDefinition: [{ entity: { name: 'ZI_ChemicalComplianceVH', element: 'IsChemicalComplianceRelevant' } }]
       IsChemicalComplianceRelevant,
+      ComplianceRelevantText,
+
       HasGlobalHierarchy,
       IsVariantConfigurationEnabled,
       NumberOfProductVariants,
@@ -133,6 +154,8 @@ define root view entity ZC_POC_PRODUCT
       LastUpdatedBy,
       LastUpdatedAt,
       LocalLastUpdatedAt,
+      StatusMessage,
+      CriticalityStatus,
 
       /* Associations */
       _ProductDescription       : redirected to composition child ZC_POC_PRODUCT_01,

@@ -56,7 +56,7 @@ annotate view ZC_POC_PRODUCT_07 with
   @UI.hidden: true
   InventoryValuationProcedure;
   @UI.fieldGroup:[{qualifier: 'ValGeneralData',position: 20}]
-  @UI.lineItem : [{ position:30, importance:#MEDIUM}]
+  @UI.lineItem : [{ position: 30, importance:#MEDIUM, label:'Valuation Category'}]
   ValuationCategory;
   @UI.fieldGroup:[{qualifier:'Determination',position: 10,label: 'Usage of the Product',groupLabel: 'Determination'}]
   ProductUsageType;

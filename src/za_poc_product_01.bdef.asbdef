@@ -2,6 +2,7 @@ abstract;
 
 define behavior for ZA_POC_PRODUCT_01 //alias <alias_name>
 {
+
   field ( mandatory )
   ProductDescription,
   producttypecode,

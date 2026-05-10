@@ -4,7 +4,7 @@ use draft;
 
 define behavior for ZC_POC_PRODUCT alias Product
 {
-  use create;
+//  use create;
   use update;
   use delete;
 
@@ -14,7 +14,7 @@ define behavior for ZC_POC_PRODUCT alias Product
   use action Resume;
   use action Prepare;
   use action createProduct;
-  use action ReSendRequest;
+//  use action ReSendRequest;
 
   use association _ProductDescription { create; with draft; }
   use association _ProductSales { create; with draft; }

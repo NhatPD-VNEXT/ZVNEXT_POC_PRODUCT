@@ -1,0 +1,34 @@
+{
+  "formatVersion": "2",
+  "header": {
+    "description": "POC Product",
+    "originalLanguage": "en",
+    "abapLanguageVersion": "cloudDevelopment"
+  },
+  "generalInformation": {
+    "appType": "ui5",
+    "catalogId": "SAP_TC_UI5_REPO_UIAD",
+    "targetMappingTitle": "POC Product"
+  },
+  "ui5AppDetails": {
+    "appId": "zvnext.zpocproduct"
+  },
+  "navigation": {
+    "targetMappingId": "UI5R_4126CC423DDEB15D01ABCF77612C04689675DA73_TM",
+    "semanticObject": "Product",
+    "action": "manage",
+    "desktop": true,
+    "tablet": true,
+    "phone": true
+  },
+  "tiles": [
+    {
+      "id": "UI5R_4126CC423DDEB15D01ABCF77612C04689675DA73_AL",
+      "tileType": "static",
+      "isDefault": true,
+      "standard": {
+        "title": "POC Product"
+      }
+    }
+  ]
+}

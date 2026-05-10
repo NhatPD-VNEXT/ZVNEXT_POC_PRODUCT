@@ -16,8 +16,8 @@ annotate view ZC_POC_PRODUCT_10 with
   @UI.hidden: true
   Businesspartner;
   @UI: {
-      lineItem : [{ position:20, importance:#HIGH}],
-      fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 20}]
+      lineItem : [{ position:20, importance:#HIGH, label:'Party Entitled to Dispose' }],
+      fieldGroup: [{qualifier: 'EWMWarehouseGenData', position: 20, label:'Party Entitled to Dispose'}]
     }
   Businesspartnerforedit;
   @UI.lineItem : [{ position:30, importance:#HIGH,label:'Plant' }]

@@ -4,12 +4,6 @@ CLASS zcl_r_rap_wf01 DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
-    INTERFACES if_swf_cpwf_callback.
-    INTERFACES if_oo_adt_classrun.
-
-    METHODS trigger_workflow.
-  PROTECTED SECTION.
-  PRIVATE SECTION.
 
     TYPES: BEGIN OF gts_product,
 
@@ -43,12 +37,34 @@ CLASS zcl_r_rap_wf01 DEFINITION
 
     TYPES: END OF gts_product.
 
+    INTERFACES if_swf_cpwf_callback.
+    INTERFACES if_oo_adt_classrun.
+
+    METHODS trigger_workflow
+      IMPORTING is_payload TYPE gts_product.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+    TYPES: gty_action TYPE c LENGTH 2.
+
+    CONSTANTS:
+      BEGIN OF gcs_action,
+        accepted TYPE gty_action VALUE '01',
+        rejected TYPE gty_action VALUE '02',
+      END OF gcs_action.
+
+    TYPES: BEGIN OF gts_outcome,
+             action TYPE gty_action,
+             reason TYPE string,
+           END OF gts_outcome.
+
     "INTERFACE data TYPE for information exchange.
     TYPES: BEGIN OF gts_context,
-             payload    TYPE gts_product,
-             recipients TYPE string,
+             payload   TYPE gts_product,
+             approver  TYPE string,
+             requester TYPE string,
            END OF gts_context.
-    METHODS call_api_external.
+    METHODS call_api_external
+      IMPORTING if_product TYPE matnr.
 
     "Constants for workflow,
     CONSTANTS:
@@ -98,31 +114,18 @@ CLASS zcl_r_rap_wf01 IMPLEMENTATION.
       CATCH cx_swf_cpwf_api INTO DATA(exception).
     ENDTRY.
 
+    DATA: lds_outcome TYPE gts_outcome,
+          ldf_product TYPE matnr.
 
-    TYPES: gty_action TYPE c LENGTH 8.
+    ldf_product = callback_context-start_event-payload-product.
 
-    CONSTANTS:
-      BEGIN OF gcs_action,
-        rejected TYPE gty_action VALUE 'rejected',
-        accepted TYPE gty_action VALUE 'accepted',
-      END OF gcs_action.
-
-    TYPES: BEGIN OF gts_outcome,
-             action TYPE gty_action,
-             reason TYPE string,
-           END OF gts_outcome.
-
-    DATA: lds_outcome TYPE gts_outcome.
     IF lds_outcome-action = gcs_action-accepted."Approved
       DATA(status)    = 'X'.
 
-      "Call HTTP service TDD
-      me->call_api_external( ).
+      "Call API service TDD
+      call_api_external( if_product = ldf_product ).
     ELSE."Rejected
-      status = 'A'.
     ENDIF.
-
-    DATA(ldf_product)  = callback_context-start_event-payload-product.
 
     IF sy-subrc = 0.
       " Update the status of the travel based on the workflow outcome.
@@ -158,27 +161,39 @@ CLASS zcl_r_rap_wf01 IMPLEMENTATION.
 
         IF mapped_wf IS NOT INITIAL.
 
-          "Map the fields to the outgoing context.
-*          DATA(context)   = VALUE type_context(
-*
-*                      travel_context-travelid      = travelid
-*                      travel_context-agency_name   = agency_name
-*                      travel_context-booking_fee   = booking_fee
-*                      travel_context-Currency_code = currency_code
-*                      travel_context-Customer_name = customer_name
-*                      travel_context-Total_price   = total_price
-*          ).
-*          CONDENSE: context-travel_context-Total_price, context-travel_context-travelid.
-*
           DATA: lds_context TYPE gts_context.
-          lds_context-payload-product = 'Test'.
-*          lds_context-payload-product_type = 'Product Type Test'.
-          lds_context-recipients = 'nguyen.duy.tan@ips.ne.jp'.
+          lds_context-payload = is_payload.
+          lds_context-approver = 'nguyen.duy.tan@ips.ne.jp'.
 
+          TRY.
+              DATA(ldf_bp_id) = cl_abap_context_info=>get_user_business_partner_id(
+*                                iv_buser =
+                                        ).
+            CATCH cx_abap_context_info_error.
+              "handle exception
+          ENDTRY.
+
+          SELECT SINGLE userid
+          FROM I_BusinessUserBasic
+          WHERE BusinessPartner = @ldf_bp_id
+          INTO @DATA(ldf_user_id)
+          PRIVILEGED ACCESS.
+
+          SELECT SINGLE \_AddrCurDefaultEmailAddress-EmailAddress
+          FROM I_user AS Address
+          WHERE UserID =     @ldf_user_id
+          INTO @DATA(ldf_email)
+          PRIVILEGED ACCESS.
+
+          lds_context-requester = ldf_email.
 *          " Set the workflow context for the new workflow instances
           DATA: ldt_name_mapping TYPE if_swf_cpwf_api=>name_mappings.
 
-          ldt_name_mapping = VALUE #( ( abap = 'PAYLOAD' json = 'payload' ) ( abap = 'RECIPIENTS' json = 'recipients' ) ).
+          SELECT *
+            FROM zw00117t_vn
+            INTO TABLE @DATA(ldt_zw00117t_vn).
+
+          ldt_name_mapping = CORRESPONDING #( ldt_zw00117t_vn ).
 
           TRY.
               DATA(lo_cpwf_api) = cl_swf_cpwf_api_factory_a4c=>get_api_instance( ).
@@ -210,41 +225,33 @@ CLASS zcl_r_rap_wf01 IMPLEMENTATION.
 
   ENDMETHOD.
 
-  METHOD if_oo_adt_classrun~main.
-    DATA: lds_context TYPE gts_context.
-    lds_context-payload-product = 'Test'.
-*          lds_context-payload-product_type = 'Product Type Test'.
-    lds_context-payload-AdjustmentProfile = '01'.
-    lds_context-payload-_productsales-CaBillgCycle = '10'.
-    lds_context-recipients = 'nguyen.duy.tan@ips.ne.jp'.
-
-*          " Set the workflow context for the new workflow instances
-    DATA: ldt_name_mapping TYPE if_swf_cpwf_api=>name_mappings.
-
-    ldt_name_mapping = VALUE #(
-        ( abap = 'PAYLOAD' json = 'payload' )
-        ( abap = 'RECIPIENTS' json = 'recipients' )
-        ( abap = 'CABILLGCYCLE' json = 'CaBillgCycle' )
-    ).
-
-    TRY.
-        DATA(lo_cpwf_api) = cl_swf_cpwf_api_factory_a4c=>get_api_instance( ).
-        DATA(lo_json_conv) = lo_cpwf_api->get_json_converter(
-                               it_name_mapping              = ldt_name_mapping
-*                                     iv_camel_case                = abap_true
-*                                     iv_capital_letter            = abap_true
-*                                     it_uppercase_word            =
-*                                     iv_suppress_empty_components = abap_true
-*                                     iv_uppercase                 = abap_false
-                             ).
-        DATA(ldf_context_json) = lo_json_conv->serialize( data = lds_context ).
-      CATCH cx_swf_cpwf_api.
-    ENDTRY.
-  ENDMETHOD.
-
 
   METHOD call_api_external.
 
+    MODIFY ENTITIES OF zi_poc_product
+              ENTITY Product
+                 UPDATE FIELDS ( IsApproval )
+                    WITH VALUE #( ( Product    = if_product
+                                    IsApproval = abap_true
+                                    %control-IsApproval     = if_abap_behv=>mk-on
+                                  ) )
+                  FAILED DATA(ls_failed)
+                  REPORTED DATA(ls_reported).
+    COMMIT ENTITIES.
+
+    READ ENTITIES OF zi_poc_product
+      ENTITY Product
+        EXECUTE syncToCloud
+          FROM VALUE #( ( %cid = 'APPROVAL_001'
+                          %param = VALUE #(  product = if_product ) ) )
+      RESULT DATA(lt_result)
+      FAILED DATA(lds_failed)
+      REPORTED DATA(lds_reported).
+  ENDMETHOD.
+
+  METHOD if_oo_adt_classrun~main.
+    DATA(lo_helper) = NEW lcl_helper( ).
+    lo_helper->generate_mapping( out ).
   ENDMETHOD.
 
 ENDCLASS.

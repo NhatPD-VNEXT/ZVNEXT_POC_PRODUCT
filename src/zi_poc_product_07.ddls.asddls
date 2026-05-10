@@ -11,7 +11,7 @@ define view entity ZI_POC_PRODUCT_07
   key valuationtype                 as ValuationType,
       valuationareaforedit          as ValuationAreaForEdit,
       valuationtypeforedit          as ValuationTypeForEdit,
-      ismarkedfordeletion           as IsMarkedForDeletion,
+      cast( ismarkedfordeletion     as abap_boolean )  as IsMarkedForDeletion,
       valuationclass                as ValuationClass,
       pricedeterminationcontrol     as PriceDeterminationControl,
       priceunitqty                  as PriceUnitQty,

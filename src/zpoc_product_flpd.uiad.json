@@ -1,0 +1,35 @@
+{
+  "formatVersion": "2",
+  "header": {
+    "description": "ZPOC_PRODUCT_FLPD",
+    "originalLanguage": "en",
+    "abapLanguageVersion": "cloudDevelopment"
+  },
+  "generalInformation": {
+    "appType": "ui5",
+    "catalogId": "SAP_TC_ALV5_DEFAULT",
+    "targetMappingTitle": "POC Product"
+  },
+  "ui5AppDetails": {
+    "appId": "zvnext.zpocproduct"
+  },
+  "navigation": {
+    "targetMappingId": "ZPOC_PRODUCT_FLPD_TM",
+    "semanticObject": "Product",
+    "action": "manage",
+    "desktop": true,
+    "tablet": true,
+    "phone": true
+  },
+  "tiles": [
+    {
+      "id": "UI5R_D23FCC5312BE9BA6A47B8989CE46B73C64BC5940_AL",
+      "tileType": "static",
+      "isDefault": true,
+      "standard": {
+        "title": "POC Product",
+        "icon": "sap-icon://product"
+      }
+    }
+  ]
+}

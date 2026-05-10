@@ -38,6 +38,7 @@ annotate view ZC_POC_PRODUCT_08 with
   ShelfLifeExpirationDatePeriod;
   @UI.fieldGroup: [{qualifier: 'Storage',position:100, label: 'Rounding Rule for Calculation'}]
   @EndUserText.label: 'Rounding Rule SLED'
+  @UI.hidden: true
   ShelfLifeExprtnDateRndingRule;
   @UI.hidden: true
   AuthorizationGroup;

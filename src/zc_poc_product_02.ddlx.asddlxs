@@ -6,6 +6,7 @@ annotate view ZC_POC_PRODUCT_02 with
   @UI.hidden: true
   AuthorizationGroup;
   @UI.fieldGroup: [{qualifier: 'ProductSales1', position: 10, groupLabel:'Product Sales'}]
+  @EndUserText.label: 'Transportation Group'
   TransportationGroup;
   @UI.fieldGroup: [{qualifier: 'ProductSales1', position: 20, label:'Cross-Distribution Chain Product Status'}]
   @EndUserText.label: 'Cross-Distribution Chain Product Status'

@@ -9,15 +9,14 @@ lock master
 total etag LastUpdatedAt
 authorization master ( global, instance )
 etag master LocalLastUpdatedAt
+with additional save
 {
   create ( authorization : global );
   update;
   delete;
 
-  determination syncToS4HANA on save { create; }
-  determination triggerWorkflow on save { create; }
-
-  field ( readonly : update ) Product;
+  field ( readonly : update ) Product, CreatedAt, CreatedBy, LastUpdatedAt, LastUpdatedBy;
+  field ( readonly ) ComplianceRelevantText;
   association _ProductDescription { create; with draft; }
   association _ProductSales { create; with draft; }
   association _ProductProcurement { create; with draft; }
@@ -40,9 +39,11 @@ etag master LocalLastUpdatedAt
   draft action Resume;
   draft determine action Prepare;
 
-  static default factory action createProduct parameter ZA_POC_PRODUCT_01 [1];
+  determination triggerWorkflow on save { create; }
+  determination resolveComplianceText on modify { field IsChemicalComplianceRelevant; }
 
-  action ( features : instance ) ReSendRequest result [1] $self;
+  static factory action createProduct parameter ZA_POC_PRODUCT_01 [1];
+  static function ( authorization : none ) syncToCloud parameter ZA_POC_PRODUCT_02 result [1] $self;
 
 
   mapping for zproduct corresponding
@@ -149,6 +150,7 @@ etag master LocalLastUpdatedAt
       ProductDocumentPageFormat      = productdocumentpageformat;
       OwnInventoryManagedProduct     = owninventorymanagedproduct;
       ProductIsLocked                = productislocked;
+      IsApproval                     = is_approval;
       CreatedBy                      = created_by;
       CreatedAt                      = created_at;
       LastUpdatedBy                  = last_updated_by;
@@ -162,6 +164,7 @@ persistent table zproduct_01
 draft table zproduct_01_d
 lock dependent by _Product
 authorization dependent by _Product
+late numbering
 //etag master <field_name>
 {
   update;
@@ -267,6 +270,7 @@ persistent table zproduct_04
 draft table zproduct_04_d
 lock dependent by _Product
 authorization dependent by _Product
+late numbering
 //etag master <field_name>
 {
   update;
@@ -313,6 +317,7 @@ persistent table zproduct_05
 draft table zproduct_05_d
 lock dependent by _Product
 authorization dependent by _Product
+late numbering
 //etag master <field_name>
 {
   update;
@@ -424,6 +429,7 @@ persistent table zproduct_07
 draft table zproduct_07_d
 lock dependent by _Product
 authorization dependent by _Product
+late numbering
 //etag master <field_name>
 {
   update;
@@ -519,6 +525,7 @@ persistent table zproduct_10
 draft table zproduct_10_d
 lock dependent by _Product
 authorization dependent by _Product
+late numbering
 //etag master <field_name>
 {
   update;
